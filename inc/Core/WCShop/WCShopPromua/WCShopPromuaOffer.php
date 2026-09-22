@@ -106,6 +106,15 @@ class WCShopPromuaOffer extends WCShopPromuaController {
         }
 
         if ( empty( $global_vendor ) ) {  // If Global Vendor is not exists
+            // If `default brands WooCommerce` is active
+            if ( 'vendor_woocommerce' == $custom_vendor ) {
+                $brands = get_the_terms( $id, 'product_brand' );
+
+                if ( ! empty( $brands ) && ! is_wp_error( $brands ) ) {
+                    return $brands[0]->name;
+                }
+                return ' ';
+            }
             // If `Perfect Brands for WooCommerce` plugin is active
             if ( 'vendor_pwb_brand' == $custom_vendor ) {
                 $vendor_taxonomy = 'pwb-brand';

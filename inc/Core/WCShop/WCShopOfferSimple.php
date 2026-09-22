@@ -88,9 +88,14 @@ class WCShopOfferSimple extends WCShopOffer {
         }
     }
 
-    public function set_name($id, $offer, $xml_tag) // XML tag <name>
+    public function set_name($id, $offer, $xml_tag)
     {
-        return $offer->addChild( $xml_tag, $this->get_product_title( $id ) );
+        $name = $this->get_product_title( $id );
+        $name = mb_convert_encoding($name, 'UTF-8', 'UTF-8');
+        $name = str_replace(array('', '&nbsp;'), array('', ' '), $name);
+        $name = htmlspecialchars(strip_tags(trim($name)), ENT_XML1, 'UTF-8');
+
+        return $offer->addChild( $xml_tag, $name );
     }
 
     public function set_vendor($id, $offer) // XML tag <vendor>

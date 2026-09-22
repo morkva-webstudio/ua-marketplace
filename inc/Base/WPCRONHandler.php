@@ -35,12 +35,10 @@ class WPCRONHandler extends BaseController
                     $xml_name_key = 'plugin_uploads_' . $marketplace . '_xmlname';
                     $xml_fileurl = $baseController->plugin_uploads_dir_url . $baseController->$xml_name_key;
 
-                    // Activate CRON-task for xml generation when xml exists
-                    if ( file_exists( $baseController->plugin_uploads_dir_path . $baseController->$xml_name_key ) ) {
-                        // add_filter( 'cron_schedules', array( $this, 'add_five_minutes_cron_interval' ) ); // For test CRON
-                        add_action( 'admin_head', array( $this, 'activate_xml_update' ) );
-                        add_action( 'mrkvuamp_update_xml_hook', array( $this, 'update_xml_exec' ) );
-                    }
+                    // Activate CRON-task for XML generation when Rozetka marketplace is active.
+                    // The scheduled task can create the XML file even if it does not exist yet.
+                    add_action( 'admin_head', array( $this, 'activate_xml_update' ) );
+                    add_action( 'mrkvuamp_update_xml_hook', array( $this, 'update_xml_exec' ) );
                 }
 
                 if ( 'promua' == $marketplace ) {
@@ -48,6 +46,11 @@ class WPCRONHandler extends BaseController
                     // Create xml-file name for active PromUA marketplace
                     $xml_name_key = 'plugin_uploads_' . $marketplace . '_xmlname';
                     $xml_fileurl = $baseController->plugin_uploads_dir_url . $baseController->$xml_name_key;
+
+                    if ( get_option( 'mrkv_uamrkpl_promua_background_proc_xml_chk' ) ) {
+                        add_filter( 'cron_schedules', array( $this, 'add_one_minute_cron_interval' ) );
+                        add_action( 'mrkvuamp_partial_update_xml_hook_promua', array( $this, 'update_xml_exec_promua_partly' ) );
+                    }
 
                     // Activate CRON-task for xml generation when xml exists
                     if ( file_exists( $baseController->plugin_uploads_dir_path . $baseController->$xml_name_key ) ) {
@@ -60,9 +63,7 @@ class WPCRONHandler extends BaseController
                         is_file( $baseController->plugin_uploads_dir_path . '/promua_status.json' ) &&
                         is_file( $baseController->plugin_uploads_dir_path . 'tmp_' . $baseController->plugin_uploads_promua_xmlname )
                      ) {
-                        add_filter( 'cron_schedules', array( $this, 'add_one_minute_cron_interval' ) ); // For partial create xml
                         add_action( 'admin_head', array( $this, 'activate_partial_xml_update_promua' ) );
-                        add_action( 'mrkvuamp_partial_update_xml_hook_promua', array( $this, 'update_xml_exec_promua_partly' ) );
                     }
                 }
             }

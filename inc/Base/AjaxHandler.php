@@ -94,6 +94,12 @@ class AjaxHandler extends BaseController
                 }
             }
             $xml = $converter->array2promuaxmlpartly( $mrkv_uamrkpl_shop_arr ); // Background
+
+            if ( get_option( 'mrkv_uamrkpl_promua_background_proc_xml_chk' ) && is_file( $converter->plugin_uploads_dir_path . '/promua_status.json' ) ) {
+                if ( ! wp_next_scheduled( 'mrkvuamp_partial_update_xml_hook_promua' ) ) {
+                    wp_schedule_event( time(), 'mrkvuamp_one_minute', 'mrkvuamp_partial_update_xml_hook_promua' );
+                }
+            }
         }
 
         $phpEnd = microtime(true);

@@ -287,12 +287,42 @@ class XMLController extends BaseController {
 
         $categories = $wcShopPromuaController->categories[0];
         $interval = DAY_IN_SECONDS;
-        $limit = get_option( 'mrkv_uamrkpl_promua_background_proc_xml_step', 200 );
+        $limit = absint( get_option( 'mrkv_uamrkpl_promua_background_proc_xml_step', 200 ) );
         $count_offers = count( $wcShopPromuaController->offers );
 
-        $cats_slugs = array();
-        if ( is_file( $this->plugin_uploads_dir_path . '/promua_status.json' ) ) {
-            $status = json_decode( file_get_contents( $promua_status_json ), true);
+        if ( $limit < 1 ) {
+            $limit = 200;
+        }
+
+        if ( $count_offers <= 0 ) {
+            if ( is_file( $promua_temp_xmlpath ) ) {
+                unlink( $promua_temp_xmlpath );
+            }
+            if ( is_file( $promua_status_json ) ) {
+                unlink( $promua_status_json );
+            }
+            return $this->array2promuaxml( (array) $wcShopPromuaController, null );
+        }
+
+        if ( $count_offers <= $limit ) {
+            if ( is_file( $promua_temp_xmlpath ) ) {
+                unlink( $promua_temp_xmlpath );
+            }
+            if ( is_file( $promua_status_json ) ) {
+                unlink( $promua_status_json );
+            }
+            return $this->array2promuaxml( (array) $wcShopPromuaController, null );
+        }
+
+        if ( is_file( $promua_status_json ) ) {
+            $status = json_decode( file_get_contents( $promua_status_json ), true );
+            if ( ! is_array( $status ) ) {
+                $status = array(
+                    'date'  => 0,
+                    'total' => 0,
+                    'step'  => 0
+                );
+            }
         } else {
             $status = array(
                 'date'  => 0,
@@ -430,7 +460,18 @@ class XMLController extends BaseController {
                 fclose( $fp );
             }
 
-            // Если последний шаг, то ZIP-архивация
+            if ( $status['total'] == $status['step'] ) {
+                if ( is_file( $promua_temp_xmlpath ) ) {
+                    copy( $promua_temp_xmlpath, $this->xml_promua_filepath );
+                    unlink( $promua_temp_xmlpath );
+                    wp_clear_scheduled_hook( 'mrkvuamp_partial_update_xml_hook_promua' );
+                    if ( is_file( $promua_status_json ) ) {
+                        unlink( $promua_status_json );
+                    }
+                }
+            }
+
+            // If this were the final step, ZIP archive handling could occur here
             // if ( $status['total'] == $status['step'] ) {
             //     $zip = new ZipArchive();
             //     $zip->open(__DIR__ . '/market.zip', ZipArchive::CREATE|ZipArchive::OVERWRITE);
@@ -444,11 +485,15 @@ class XMLController extends BaseController {
             if ( is_file( $promua_temp_xmlpath ) ) {
                 copy( $promua_temp_xmlpath, $this->xml_promua_filepath );
                 unlink( $promua_temp_xmlpath );
+                wp_clear_scheduled_hook( 'mrkvuamp_partial_update_xml_hook_promua' );
+                if ( is_file( $promua_status_json ) ) {
+                    unlink( $promua_status_json );
+                }
             } else {
                 error_log( 'Не вдалось скопіювати:\\n' .  $promua_temp_xmlpath . ' в\\n' . $this->xml_promua_filepath );
                 error_log( 'Тимчасовий файл відсутній');
             }
-            error_log( 'XML-файл для PromUA сформований, наступне оновлення ' . date('d.m.Y H:s', $status['date'] + $interval) . ' UTC' );
+            error_log( 'XML-файл для PromUA сформований, наступне оновлення ' . date('d.m.Y H:i', $status['date'] + $interval) . ' UTC' );
         }
     }
 

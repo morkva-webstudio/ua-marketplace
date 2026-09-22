@@ -52,13 +52,20 @@ class Offer extends BaseController {
     {
         $images_urls = '';
         $main_image_id  = $offer->get_image_id();
-        $images_urls = '<picture>' . wp_get_attachment_image_url( $main_image_id, 'full' ) . '</picture>';
+        
+        $main_url = wp_get_attachment_image_url( $main_image_id, 'full' );
+        if ( $main_url ) {
+            $images_urls = '<picture>' . esc_url( $main_url ) . '</picture>';
+        }
 
         $attachment_ids = $offer->get_gallery_image_ids();
         foreach( $attachment_ids as $attachment_id ) {
-            $images_urls .= '<picture>' . wp_get_attachment_image_url( $attachment_id, 'full' ) . '</picture>';
-
+            $gallery_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+            if ( $gallery_url ) {
+                $images_urls .= '<picture>' . esc_url( $gallery_url ) . '</picture>';
+            }
         }
+        
         return empty( $images_urls ) ? '<picture> </picture>' : $images_urls;
     }
 
@@ -75,6 +82,16 @@ class Offer extends BaseController {
         }
 
         if ( empty( $global_vendor ) ) {  // If Global Vendor is not exists
+            // If `default brands WooCommerce` is active
+            if ( 'vendor_woocommerce' == $custom_vendor ) {
+                $id = $offer->get_id();
+                $brands = get_the_terms( $id, 'product_brand' );
+
+                if ( ! empty( $brands ) && ! is_wp_error( $brands ) ) {
+                    return $brands[0]->name;
+                }
+                return ' ';
+            }
             // If `Perfect Brands for WooCommerce` plugin is active
             if ( 'vendor_pwb_brand' == $custom_vendor ) {
                 $vendor_taxonomy = 'pwb-brand';

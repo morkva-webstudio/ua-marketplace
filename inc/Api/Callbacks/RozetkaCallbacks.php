@@ -68,8 +68,9 @@ class RozetkaCallbacks extends BaseController
     public function setVendorNames()
     {
         $value = esc_attr( get_option( 'mrkv_uamrkpl_rozetka_custom_vendor' ) );
-        $vendor_values = array( 'vendor_pwb_brand' , 'vendor_by_attributes', 'vendor_all_possibilities' );
+        $vendor_values = array( 'vendor_woocommerce', 'vendor_pwb_brand' , 'vendor_by_attributes', 'vendor_all_possibilities' );
         $vendorTypeChoice = array(
+            'Вбудований функціонал брендів WooCommerce',
             'Плагін "Perfect Brands for WooCommerce"',
             'Використовувати атрибути як бренди',
             'Метадані в якості брендів'
