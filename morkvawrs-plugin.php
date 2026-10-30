@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       UA Marketplace
+ * Plugin Name:       UA Marketplaces – Rozetka & Prom.ua XML Feeds for WooCommerce
  * Plugin URI:        https://morkva.co.ua/shop-2/woocommerce-rozetka-sync
  * Description:       XML feeds for Rozetka and Prom.ua from your WooCommerce catalog, generated in the background in small batches.
  * Version:           2.0.0

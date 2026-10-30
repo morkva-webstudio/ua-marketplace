@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: UA Marketplace 2.0.0\n"
+"Project-Id-Version: UA Marketplaces – Rozetka & Prom.ua XML Feeds for WooCommerce 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ua-marketplace\n"
 "Last-Translator: morkva <support@morkva.co.ua>\n"
 "Language-Team: Ukrainian\n"
@@ -11,15 +11,15 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-30T14:34:17+00:00\n"
-"PO-Revision-Date: 2026-10-30 14:35+0000\n"
+"POT-Creation-Date: 2026-10-30T14:52:20+00:00\n"
+"PO-Revision-Date: 2026-10-30 14:52+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ua-marketplace\n"
 
 #. Plugin Name of the plugin
 #: morkvawrs-plugin.php
-msgid "UA Marketplace"
-msgstr "UA Marketplace"
+msgid "UA Marketplaces – Rozetka & Prom.ua XML Feeds for WooCommerce"
+msgstr "UA Marketplaces – XML-фіди Rozetka і Prom.ua для WooCommerce"
 
 #. Plugin URI of the plugin
 #: morkvawrs-plugin.php
