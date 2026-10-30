@@ -32,6 +32,7 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 			add_action( 'admin_notices', array( $this, 'migration_notice' ) );
 			add_action( 'admin_post_mrkv_uamp_feed', array( $this, 'handle_feed_action' ) );
 			add_action( 'admin_post_mrkv_uamp_save', array( $this, 'handle_save' ) );
+			add_action( 'admin_post_mrkv_uamp_rozetka_directory', array( $this, 'handle_directory_refresh' ) );
 			add_action( 'wp_ajax_mrkv_uamp_feed_status', array( $this, 'ajax_feed_status' ) );
 			add_action( 'wp_ajax_mrkv_uamp_rozetka_search', array( $this, 'ajax_rozetka_search' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( MRKV_UAMP_FILE ), array( $this, 'action_links' ) );
@@ -153,14 +154,17 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 		private function notice(): void {
 			$code = isset( $_GET['mrkv_uamp_notice'] ) ? sanitize_key( wp_unslash( $_GET['mrkv_uamp_notice'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- message code only
 			$map  = array(
-				'saved'    => array( 'success', __( 'Settings saved. They apply from the next feed build.', 'ua-marketplace' ) ),
-				'added'    => array( 'success', __( 'Feed created. Fill in the settings below, then build the feed.', 'ua-marketplace' ) ),
-				'started'  => array( 'success', __( 'The build has started in the background. You can leave this page.', 'ua-marketplace' ) ),
-				'busy'     => array( 'warning', __( 'The feed is being written right now. Try again in a minute.', 'ua-marketplace' ) ),
-				'paused'   => array( 'success', __( 'Feed paused: it is no longer updated, the last file stays available.', 'ua-marketplace' ) ),
-				'resumed'  => array( 'success', __( 'Feed resumed.', 'ua-marketplace' ) ),
-				'deleted'  => array( 'success', __( 'Feed deleted.', 'ua-marketplace' ) ),
-				'error'    => array( 'error', __( 'Something went wrong. See WooCommerce → Status → Logs (ua-marketplace).', 'ua-marketplace' ) ),
+				'saved'       => array( 'success', __( 'Settings saved. They apply from the next feed build.', 'ua-marketplace' ) ),
+				'added'       => array( 'success', __( 'Feed created. Fill in the settings below, then build the feed.', 'ua-marketplace' ) ),
+				'started'     => array( 'success', __( 'The build has started in the background. You can leave this page.', 'ua-marketplace' ) ),
+				'busy'        => array( 'warning', __( 'The feed is being written right now. Try again in a minute.', 'ua-marketplace' ) ),
+				'paused'      => array( 'success', __( 'Feed paused: it is no longer updated, the last file stays available.', 'ua-marketplace' ) ),
+				'resumed'     => array( 'success', __( 'Feed resumed.', 'ua-marketplace' ) ),
+				'deleted'     => array( 'success', __( 'Feed deleted.', 'ua-marketplace' ) ),
+				'error'       => array( 'error', __( 'Something went wrong. See WooCommerce → Status → Logs (ua-marketplace).', 'ua-marketplace' ) ),
+				'dir_updated' => array( 'success', __( 'Rozetka category directory updated.', 'ua-marketplace' ) ),
+				'dir_busy'    => array( 'warning', __( 'The Rozetka category directory is being updated right now. Reload the page in a minute.', 'ua-marketplace' ) ),
+				'dir_error'   => array( 'error', __( 'The Rozetka category directory could not be updated. The reason is shown below.', 'ua-marketplace' ) ),
 			);
 			if ( isset( $map[ $code ] ) ) {
 				printf( '<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>', esc_attr( $map[ $code ][0] ), esc_html( $map[ $code ][1] ) );
@@ -551,6 +555,22 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 
 			wp_safe_redirect( self::url( $slug, array( 'mrkv_uamp_notice' => 'saved' ) ) );
 			exit;
+		}
+
+		/** "Refresh" next to the directory status: a signed link, so it works inside the settings form. */
+		public function handle_directory_refresh(): void {
+			$this->guard( 'mrkv_uamp_rozetka_directory' );
+			$result = MRKV_UAMP_ROZETKA_IMPORTER::check( true );
+			$notice = array(
+				'updated' => 'dir_updated',
+				'busy'    => 'dir_busy',
+			)[ $result ] ?? 'dir_error';
+			wp_safe_redirect( self::url( 'rozetka', array( 'mrkv_uamp_notice' => $notice ) ) . '#mrkv-uamp-mapping' );
+			exit;
+		}
+
+		public static function directory_refresh_url(): string {
+			return wp_nonce_url( add_query_arg( 'action', 'mrkv_uamp_rozetka_directory', admin_url( 'admin-post.php' ) ), 'mrkv_uamp_rozetka_directory' );
 		}
 
 		/** Live progress for the Feeds table. */
