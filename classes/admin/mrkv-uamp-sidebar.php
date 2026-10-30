@@ -14,10 +14,6 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 		const SITE_URL  = 'https://morkva.co.ua/';
 		const DOCS_URL  = 'https://docs.morkva.co.ua/uk';
 
-		/** Plugin list endpoint and the transient all morkva plugins share for it. */
-		const PLUGINS_API = 'https://morkva.co.ua/wp-json/pluginManagementPro/v2';
-		const PLUGINS_KEY = 'morkva_plugin_management_data';
-
 		public static function render(): void {
 			?>
 			<div class="mrkv-uamp-sidebar">
@@ -65,31 +61,17 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 			<?php
 		}
 
-		/** "Other free plugins" card, from the morkva plugin list (cached 12 hours, 1 hour after a failure). */
+		/** "Other free plugins" card: our plugins on wordpress.org, each linked to its free version there. */
 		private static function other_plugins(): void {
-			$plugins = self::fetch_plugins();
-			unset( $plugins['ua-marketplace'], $plugins['ua-marketplaces-pro'] );
-			if ( empty( $plugins ) ) {
-				return;
-			}
-			$ukrainian = 0 === strpos( get_user_locale(), 'uk' );
 			?>
 			<div class="mrkv-uamp-sidebar__card">
 				<h3><?php esc_html_e( 'Other free plugins', 'ua-marketplace' ); ?></h3>
 				<p><?php esc_html_e( 'All our plugins are cross-compatible', 'ua-marketplace' ); ?></p>
 				<ul class="mrkv-uamp-sidebar__plugins">
-					<?php foreach ( $plugins as $plugin ) : ?>
-						<?php
-						if ( ! is_array( $plugin ) || empty( $plugin['url'] ) || empty( $plugin['label'] ) ) {
-							continue;
-						}
-						$description = $ukrainian ? ( $plugin['description'] ?? '' ) : ( $plugin['description_en'] ?? '' );
-						?>
+					<?php foreach ( self::free_plugins() as $slug => $plugin ) : ?>
 						<li>
-							<a href="<?php echo esc_url( self::utm( $plugin['url'] ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $plugin['label'] ); ?></a>
-							<?php if ( '' !== $description ) : ?>
-								<span>&ndash; <?php echo esc_html( $description ); ?></span>
-							<?php endif; ?>
+							<a href="<?php echo esc_url( 'https://wordpress.org/plugins/' . $slug . '/' ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $plugin[0] ); ?></a>
+							<span>&ndash; <?php echo esc_html( $plugin[1] ); ?></span>
 						</li>
 					<?php endforeach; ?>
 				</ul>
@@ -97,21 +79,20 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 			<?php
 		}
 
-		private static function fetch_plugins(): array {
-			$cached = get_transient( self::PLUGINS_KEY );
-			if ( false === $cached ) {
-				$response = wp_remote_get( self::PLUGINS_API, array( 'timeout' => 6 ) );
-				$data     = is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response )
-					? null
-					: json_decode( wp_remote_retrieve_body( $response ), true );
-				if ( empty( $data ) || ! is_array( $data ) ) {
-					set_transient( self::PLUGINS_KEY, 'error', HOUR_IN_SECONDS );
-					return array();
-				}
-				set_transient( self::PLUGINS_KEY, $data, 12 * HOUR_IN_SECONDS );
-				$cached = $data;
-			}
-			return ( is_array( $cached ) && isset( $cached['plugins'] ) && is_array( $cached['plugins'] ) ) ? $cached['plugins'] : array();
+		/** wordpress.org slug => array( name, what it does ). */
+		private static function free_plugins(): array {
+			return array(
+				'morkva-ua-shipping'     => array( 'morkva UA Shipping', __( 'Nova Poshta, Ukrposhta and Rozetka Delivery shipping', 'ua-marketplace' ) ),
+				'mrkv-nova-post'         => array( 'morkva Nova Post', __( 'Nova Post shipping', 'ua-marketplace' ) ),
+				'checkbox'               => array( 'morkva Checkbox Integration', __( 'e-receipts with Checkbox', 'ua-marketplace' ) ),
+				'mrkv-vchasno-kasa'      => array( 'morkva Vchasno Kasa Integration', __( 'e-receipts with Vchasno.Kasa', 'ua-marketplace' ) ),
+				'mrkv-monobank-extended' => array( 'morkva Plata by Mono Extended', __( 'Monobank card payments', 'ua-marketplace' ) ),
+				'mrkv-liqpay-extended'   => array( 'morkva LiqPay Extended', __( 'PrivatBank LiqPay card payments', 'ua-marketplace' ) ),
+				'morkva-novapay'         => array( 'morkva NovaPay', __( 'NovaPay payments', 'ua-marketplace' ) ),
+				'morkva-buy-one-click'   => array( 'morkva Quick Order Button', __( 'one-click order button', 'ua-marketplace' ) ),
+				'morkva-product-video'   => array( 'morkva Product Video', __( 'videos in product galleries', 'ua-marketplace' ) ),
+				'mrkv-review-reminder'   => array( 'morkva Product Review Reminder', __( 'reminds customers to review their purchases', 'ua-marketplace' ) ),
+			);
 		}
 
 		private static function utm( string $url ): string {

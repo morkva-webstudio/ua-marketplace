@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-30T14:52:20+00:00\n"
+"POT-Creation-Date: 2026-10-30T20:44:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ua-marketplace\n"
@@ -39,296 +39,296 @@ msgstr ""
 msgid "https://morkva.co.ua"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:54
-#: classes/admin/mrkv-uamp-admin.php:267
+#: classes/admin/mrkv-uamp-admin.php:65
+#: classes/admin/mrkv-uamp-admin.php:284
 msgid "Settings"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:86
+#: classes/admin/mrkv-uamp-admin.php:97
 msgid "Copied"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:87
+#: classes/admin/mrkv-uamp-admin.php:98
 msgid "Searching…"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:88
+#: classes/admin/mrkv-uamp-admin.php:99
 msgid "Nothing found. You can also type a Rozetka category ID."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:89
+#: classes/admin/mrkv-uamp-admin.php:100
 msgid "Type a category name or ID"
 msgstr ""
 
 #. translators: %s: Rozetka category ID typed in the picker
-#: classes/admin/mrkv-uamp-admin.php:91
+#: classes/admin/mrkv-uamp-admin.php:102
 #, php-format
 msgid "Use Rozetka ID %s"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:92
+#: classes/admin/mrkv-uamp-admin.php:103
 msgid "Changing the folder or file name changes the feed URL. Update it in the marketplace cabinet afterwards. Continue?"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:104
+#: classes/admin/mrkv-uamp-admin.php:115
 msgid "Feeds"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:157
+#: classes/admin/mrkv-uamp-admin.php:174
 msgid "Settings saved. They apply from the next feed build."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:158
+#: classes/admin/mrkv-uamp-admin.php:175
 msgid "Feed created. Fill in the settings below, then build the feed."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:159
+#: classes/admin/mrkv-uamp-admin.php:176
 msgid "The build has started in the background. You can leave this page."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:160
+#: classes/admin/mrkv-uamp-admin.php:177
 msgid "The feed is being written right now. Try again in a minute."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:161
+#: classes/admin/mrkv-uamp-admin.php:178
 msgid "Feed paused: it is no longer updated, the last file stays available."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:162
+#: classes/admin/mrkv-uamp-admin.php:179
 msgid "Feed resumed."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:163
+#: classes/admin/mrkv-uamp-admin.php:180
 msgid "Feed deleted."
 msgstr ""
 
 #. translators: %s: log source name
-#: classes/admin/mrkv-uamp-admin.php:164
+#: classes/admin/mrkv-uamp-admin.php:181
 #, php-format
 msgid "Something went wrong. See WooCommerce → Status → Logs (%s)."
 msgstr ""
 
 #. translators: %s: log source name
-#: classes/admin/mrkv-uamp-admin.php:165
+#: classes/admin/mrkv-uamp-admin.php:182
 msgid "Rozetka category directory updated."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:166
+#: classes/admin/mrkv-uamp-admin.php:183
 msgid "The Rozetka category directory is being updated right now. Reload the page in a minute."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:167
+#: classes/admin/mrkv-uamp-admin.php:184
 msgid "The Rozetka category directory could not be updated. The reason is shown below."
 msgstr ""
 
 #. translators: %s: list of marketplaces
-#: classes/admin/mrkv-uamp-admin.php:188
+#: classes/admin/mrkv-uamp-admin.php:205
 #, php-format
-msgid "UA Marketplace 2.0: your feeds (%s) were moved to the new settings. Feed URLs did not change, so nothing needs updating in the marketplace cabinets. The feeds are being rebuilt in the background."
+msgid "UA Marketplaces 2.0: your feeds (%s) were moved to the new settings. Feed URLs did not change, so nothing needs updating in the marketplace cabinets. The feeds are being rebuilt in the background."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:191
+#: classes/admin/mrkv-uamp-admin.php:208
 msgid "Open the feeds"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:205
+#: classes/admin/mrkv-uamp-admin.php:222
 msgid "Each feed is an XML file the marketplace downloads on its own schedule. Copy its URL into the marketplace cabinet once; it never changes."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:212
-#: classes/admin/mrkv-uamp-admin.php:237
+#: classes/admin/mrkv-uamp-admin.php:229
+#: classes/admin/mrkv-uamp-admin.php:254
 msgid "Marketplace"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:213
-#: classes/admin/mrkv-uamp-admin.php:417
-#: classes/admin/mrkv-uamp-admin.php:420
+#: classes/admin/mrkv-uamp-admin.php:230
+#: classes/admin/mrkv-uamp-admin.php:434
+#: classes/admin/mrkv-uamp-admin.php:437
 msgid "Feed URL"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:214
+#: classes/admin/mrkv-uamp-admin.php:231
 msgid "Status"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:215
+#: classes/admin/mrkv-uamp-admin.php:232
 msgid "Build"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:226
+#: classes/admin/mrkv-uamp-admin.php:243
 msgid "No feeds yet. Add one for each marketplace you sell on."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:232
+#: classes/admin/mrkv-uamp-admin.php:249
 msgid "Add a feed"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:243
+#: classes/admin/mrkv-uamp-admin.php:260
 msgid "Add feed"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:262
+#: classes/admin/mrkv-uamp-admin.php:279
 msgid "Paused"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:264
+#: classes/admin/mrkv-uamp-admin.php:281
 msgid "Active"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:268
+#: classes/admin/mrkv-uamp-admin.php:285
 msgid "Resume"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:268
+#: classes/admin/mrkv-uamp-admin.php:285
 msgid "Pause"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:269
+#: classes/admin/mrkv-uamp-admin.php:286
 msgid "Delete"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:274
+#: classes/admin/mrkv-uamp-admin.php:291
 #, php-format
 msgid "%s feed URL"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:275
-#: classes/admin/mrkv-uamp-admin.php:421
+#: classes/admin/mrkv-uamp-admin.php:292
+#: classes/admin/mrkv-uamp-admin.php:438
 msgid "Copy"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:278
+#: classes/admin/mrkv-uamp-admin.php:295
 msgid "Open"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:280
+#: classes/admin/mrkv-uamp-admin.php:297
 msgid "The file appears after the first build."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:288
+#: classes/admin/mrkv-uamp-admin.php:305
 msgid "Not updated while paused"
 msgstr ""
 
 #. translators: 1: next update time, 2: schedule such as "Once a day"
-#: classes/admin/mrkv-uamp-admin.php:291
+#: classes/admin/mrkv-uamp-admin.php:308
 #, php-format
 msgid "Next: %1$s (%2$s)"
 msgstr ""
 
 #. translators: 1: next update time, 2: schedule such as "Once a day"
-#: classes/admin/mrkv-uamp-admin.php:291
+#: classes/admin/mrkv-uamp-admin.php:308
 msgid "scheduling…"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:304
+#: classes/admin/mrkv-uamp-admin.php:321
 msgid "Restart build"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:304
+#: classes/admin/mrkv-uamp-admin.php:321
 msgid "Build now"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:330
+#: classes/admin/mrkv-uamp-admin.php:347
 #, php-format
 msgid "Delete the %s feed?"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:331
+#: classes/admin/mrkv-uamp-admin.php:348
 msgid "The feed stops updating. If the marketplace still downloads this URL, keep the file so your products are not taken off the marketplace until you remove the price list there."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:333
+#: classes/admin/mrkv-uamp-admin.php:350
 msgid "Settings and category mapping are kept: adding the feed again restores them."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:339
+#: classes/admin/mrkv-uamp-admin.php:356
 msgid "Also delete the XML file"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:341
+#: classes/admin/mrkv-uamp-admin.php:358
 msgid "Delete feed"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:342
+#: classes/admin/mrkv-uamp-admin.php:359
 msgid "Cancel"
 msgstr ""
 
 #. translators: 1: products done, 2: products total
-#: classes/admin/mrkv-uamp-admin.php:351
+#: classes/admin/mrkv-uamp-admin.php:368
 #, php-format
 msgid "Building: %1$d of %2$d products"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:359
+#: classes/admin/mrkv-uamp-admin.php:376
 msgid "Not built yet"
 msgstr ""
 
 #. translators: 1: date and time, 2: number of offers
-#: classes/admin/mrkv-uamp-admin.php:363
+#: classes/admin/mrkv-uamp-admin.php:380
 #, php-format
 msgid "%1$s · %2$d offer"
 msgid_plural "%1$s · %2$d offers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/admin/mrkv-uamp-admin.php:371
+#: classes/admin/mrkv-uamp-admin.php:388
 msgid "Every hour"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:372
+#: classes/admin/mrkv-uamp-admin.php:389
 msgid "Every 4 hours"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:373
+#: classes/admin/mrkv-uamp-admin.php:390
 msgid "Twice a day"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:374
+#: classes/admin/mrkv-uamp-admin.php:391
 msgid "Once a day"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:404
+#: classes/admin/mrkv-uamp-admin.php:421
 #, php-format
 msgid "Save %s settings"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:414
+#: classes/admin/mrkv-uamp-admin.php:431
 msgid "Feed file and updates"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:426
+#: classes/admin/mrkv-uamp-admin.php:443
 msgid "Folder and file name"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:429
+#: classes/admin/mrkv-uamp-admin.php:446
 msgid "Folder"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:436
+#: classes/admin/mrkv-uamp-admin.php:453
 msgid "Update"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:444
+#: classes/admin/mrkv-uamp-admin.php:461
 msgid "The free version rebuilds every feed once a day. Rozetka downloads price lists every hour."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:449
+#: classes/admin/mrkv-uamp-admin.php:466
 msgid "Products per query"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:452
+#: classes/admin/mrkv-uamp-admin.php:469
 msgid "The feed is built in short background steps of about 20 seconds, so the server time limit never matters. Lower this only if builds stop with memory errors."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:463
+#: classes/admin/mrkv-uamp-admin.php:480
 msgid "You are not allowed to manage marketplace feeds."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:474
+#: classes/admin/mrkv-uamp-admin.php:491
 msgid "This action needs a form submission."
 msgstr ""
 
@@ -657,70 +657,110 @@ msgstr ""
 msgid "— Choose an attribute —"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:26
+#: classes/admin/mrkv-uamp-sidebar.php:22
 msgid "Like this plugin?"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:28
+#: classes/admin/mrkv-uamp-sidebar.php:24
 msgid "Support our efforts with a 5-star review at"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:32
+#: classes/admin/mrkv-uamp-sidebar.php:28
 msgid "Leave a review"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:35
+#: classes/admin/mrkv-uamp-sidebar.php:31
 msgid "Not good enough for 5 stars? Contact us via the widget on our website, or check the documentation."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:37
-#: classes/admin/mrkv-uamp-sidebar.php:57
+#: classes/admin/mrkv-uamp-sidebar.php:33
+#: classes/admin/mrkv-uamp-sidebar.php:53
 msgid "Go to the website"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:38
-#: classes/admin/mrkv-uamp-sidebar.php:58
+#: classes/admin/mrkv-uamp-sidebar.php:34
+#: classes/admin/mrkv-uamp-sidebar.php:54
 msgid "Documentation"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:43
+#: classes/admin/mrkv-uamp-sidebar.php:39
 msgid "Check out the Pro version"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:45
+#: classes/admin/mrkv-uamp-sidebar.php:41
 msgid "Hourly feed updates"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:46
+#: classes/admin/mrkv-uamp-sidebar.php:42
 msgid "Sale and promo prices, price formulas"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:47
+#: classes/admin/mrkv-uamp-sidebar.php:43
 msgid "Variation photo galleries"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:48
+#: classes/admin/mrkv-uamp-sidebar.php:44
 msgid "Prom keywords, catalog category and two languages"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:49
+#: classes/admin/mrkv-uamp-sidebar.php:45
 msgid "Description templates, SKU in the name, own feed file names"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:51
+#: classes/admin/mrkv-uamp-sidebar.php:47
 msgid "Buy the Pro version"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:55
+#: classes/admin/mrkv-uamp-sidebar.php:51
 msgid "Need help?"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:78
+#: classes/admin/mrkv-uamp-sidebar.php:68
 msgid "Other free plugins"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:79
+#: classes/admin/mrkv-uamp-sidebar.php:69
 msgid "All our plugins are cross-compatible"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:85
+msgid "Nova Poshta, Ukrposhta and Rozetka Delivery shipping"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:86
+msgid "Nova Post shipping"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:87
+msgid "e-receipts with Checkbox"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:88
+msgid "e-receipts with Vchasno.Kasa"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:89
+msgid "Monobank card payments"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:90
+msgid "PrivatBank LiqPay card payments"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:91
+msgid "NovaPay payments"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:92
+msgid "one-click order button"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:93
+msgid "videos in product galleries"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:94
+msgid "reminds customers to review their purchases"
 msgstr ""
 
 #: classes/feeds/mrkv-uamp-builder.php:58
@@ -728,26 +768,26 @@ msgid "Could not create the feed folder in uploads."
 msgstr ""
 
 #: classes/feeds/mrkv-uamp-builder.php:64
-#: classes/feeds/mrkv-uamp-builder.php:127
-#: classes/feeds/mrkv-uamp-builder.php:186
+#: classes/feeds/mrkv-uamp-builder.php:129
+#: classes/feeds/mrkv-uamp-builder.php:191
 msgid "Could not write to the feed folder in uploads."
 msgstr ""
 
-#: classes/feeds/mrkv-uamp-builder.php:103
+#: classes/feeds/mrkv-uamp-builder.php:104
 msgid "The temporary feed file disappeared during the build; a new build will start on the next run."
 msgstr ""
 
 #. translators: %s: log source name
-#: classes/feeds/mrkv-uamp-builder.php:192
+#: classes/feeds/mrkv-uamp-builder.php:197
 #, php-format
 msgid "The new feed is not valid XML, so the previous file was kept. See WooCommerce → Status → Logs (%s)."
 msgstr ""
 
-#: classes/feeds/mrkv-uamp-builder.php:199
+#: classes/feeds/mrkv-uamp-builder.php:204
 msgid "The new feed has no products, so the previous file was kept. Check the category mapping and product filters."
 msgstr ""
 
-#: classes/feeds/mrkv-uamp-builder.php:203
+#: classes/feeds/mrkv-uamp-builder.php:208
 msgid "Could not replace the feed file. Check the folder permissions in uploads."
 msgstr ""
 

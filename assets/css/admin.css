@@ -1,4 +1,21 @@
-/* WooCommerce → UA Marketplace. Native WP admin markup; this file only lays it out. */
+/* WooCommerce → UA Marketplaces feeds. Native WP admin markup; this file only lays it out. */
+
+.mrkv-uamp-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.mrkv-uamp-logo {
+	display: block;
+	line-height: 0;
+}
+
+.mrkv-uamp-logo img {
+	height: 24px;
+	width: auto;
+}
 
 .mrkv-uamp-layout {
 	display: flex;

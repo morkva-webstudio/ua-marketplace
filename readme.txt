@@ -64,17 +64,14 @@ Filters: `mrkv_uamp_offer` (one offer before it is written), `mrkv_uamp_categori
 
 = 🔗 External services =
 
-The plugin connects to two services run by morkva, the plugin's author:
-
-1. **Rozetka category directory** at `https://api.morkva.co.ua/morkvafiles/woo-rozetka/categories.json` (and `categories.meta.json` next to it). It is downloaded once a week while you have a Rozetka feed, and when you click "Refresh" on the Rozetka tab. The request is a plain download: no data about your shop, products or customers is sent, apart from the standard WordPress user agent, which includes your site address.
-2. **List of other morkva plugins** in the sidebar of the plugin's settings page, from `https://morkva.co.ua/wp-json/pluginManagementPro/v2`. It is requested when you open that page, at most every 12 hours. Nothing is sent apart from the standard WordPress user agent.
+The plugin connects to one service run by morkva, the plugin's author: the **Rozetka category directory** at `https://api.morkva.co.ua/morkvafiles/woo-rozetka/categories.json` (and `categories.meta.json` next to it). It is downloaded once a week while you have a Rozetka feed, and when you click "Refresh" on the Rozetka tab. The request is a plain download: no data about your shop, products or customers is sent, apart from the standard WordPress user agent, which includes your site address.
 
 The plugin sends nothing to Rozetka or Prom.ua: the marketplaces download the XML file from your site.
 
 == Installation ==
 
 1. Install and activate the plugin. WooCommerce must be active.
-2. Go to WooCommerce → UA Marketplace and add a feed for Rozetka, Prom.ua or both.
+2. Go to WooCommerce → UA Marketplaces feeds and add a feed for Rozetka, Prom.ua or both.
 3. On the marketplace tab, fill in the shop name and brand. For Rozetka, map your categories to Rozetka categories.
 4. Click "Build now" on the Feeds tab, copy the feed URL and paste it into the marketplace cabinet.
 
@@ -82,7 +79,7 @@ The plugin sends nothing to Rozetka or Prom.ua: the marketplaces download the XM
 
 = Where do I find the feed URL? =
 
-WooCommerce → UA Marketplace → Feeds, the "Copy" button next to the feed. Paste it into the Rozetka or Prom.ua cabinet once; it does not change.
+WooCommerce → UA Marketplaces feeds → Feeds, the "Copy" button next to the feed. Paste it into the Rozetka or Prom.ua cabinet once; it does not change.
 
 = I updated from 1.x. Do I need to change anything in the marketplace cabinets? =
 
