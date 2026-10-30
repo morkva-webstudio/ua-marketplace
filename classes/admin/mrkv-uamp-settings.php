@@ -99,6 +99,10 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 			return (array) apply_filters( 'mrkv_uamp_settings_sections', $sections, $slug );
 		}
 
+		/**
+		 * Price, name and picture options. The Pro ones keep their 1.x keys, so Pro 1.x settings
+		 * carry over; in Free they are shown locked as a preview.
+		 */
 		private static function product_fields( string $slug ): array {
 			$fields = array();
 			if ( 'rozetka' === $slug ) {
@@ -112,42 +116,121 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 					),
 					'description' => __( 'Choose <name_ua> when your product texts are in Ukrainian; Rozetka translates the other language automatically.', 'ua-marketplace' ),
 				);
+				$fields[] = array(
+					'key'   => 'add_sales_price_chk',
+					'type'  => 'checkbox',
+					'label' => __( 'Sale price', 'ua-marketplace' ),
+					'text'  => __( 'Send the sale price as <price> and the regular price as <price_old>', 'ua-marketplace' ),
+					'pro'   => true,
+				);
+				$fields[] = array(
+					'key'   => 'price_promo_chk',
+					'type'  => 'checkbox',
+					'label' => __( 'Promo price', 'ua-marketplace' ),
+					'text'  => __( 'Send <price_promo> from the product\'s "Rozetka promo price" field', 'ua-marketplace' ),
+					'pro'   => true,
+				);
+			} else {
+				$fields[] = array(
+					'key'   => 'sale_price_note',
+					'type'  => 'note',
+					'label' => __( 'Sale price', 'ua-marketplace' ),
+					'text'  => __( 'A product on sale is sent with the sale price as <price> and the regular price as <oldprice>.', 'ua-marketplace' ),
+					'pro'   => true,
+				);
 			}
 			$fields[] = array(
-				'key'         => 'add_sales_price_chk',
-				'type'        => 'checkbox',
-				'label'       => __( 'Sale price', 'ua-marketplace' ),
-				'text'        => __( 'Send the sale price with the regular price crossed out', 'ua-marketplace' ),
-				'pro'         => true,
+				'key'        => 'product_price_formula_chk',
+				'type'       => 'checkbox',
+				'label'      => __( 'Price formula', 'ua-marketplace' ),
+				'text'       => __( 'Change every price in the feed', 'ua-marketplace' ),
+				'pro'        => true,
+				'attributes' => array( 'data-mrkv-uamp-toggle' => 'formula' ),
 			);
 			$fields[] = array(
 				'key'         => 'product_price_formula',
 				'type'        => 'text',
-				'label'       => __( 'Price formula', 'ua-marketplace' ),
+				'label'       => __( 'Formula', 'ua-marketplace' ),
 				'placeholder' => '*1.15',
-				'description' => __( 'Change every price in the feed: *1.15, +50 or -20.', 'ua-marketplace' ),
+				'description' => __( 'One operation on the price: *1.15, +50 or -20.', 'ua-marketplace' ),
 				'pro'         => true,
+				'row_attrs'   => array( 'data-mrkv-uamp-show' => 'formula:1' ),
+			);
+			if ( 'promua' === $slug ) {
+				$fields[] = array(
+					'key'       => 'product_price_formula_rounded',
+					'type'      => 'select',
+					'label'     => __( 'Rounding', 'ua-marketplace' ),
+					'options'   => array(
+						'without'      => __( 'Do not round', 'ua-marketplace' ),
+						'one_sign'     => __( 'One decimal place', 'ua-marketplace' ),
+						'two_sign'     => __( 'Two decimal places', 'ua-marketplace' ),
+						'whole_number' => __( 'Whole number', 'ua-marketplace' ),
+					),
+					'pro'       => true,
+					'row_attrs' => array( 'data-mrkv-uamp-show' => 'formula:1' ),
+				);
+			}
+			if ( 'rozetka' === $slug ) {
+				$fields[] = array(
+					'key'        => 'prodextra_nameids_chk',
+					'type'       => 'checkbox',
+					'label'      => __( 'Code in the name', 'ua-marketplace' ),
+					'text'       => __( 'Add the SKU or the product ID to the name in brackets', 'ua-marketplace' ),
+					'pro'        => true,
+					'attributes' => array( 'data-mrkv-uamp-toggle' => 'nameids' ),
+				);
+				$fields[] = array(
+					'key'       => 'prodextra_nameids_src',
+					'type'      => 'select',
+					'label'     => __( 'Code', 'ua-marketplace' ),
+					'options'   => array(
+						'mrkvuamp_sku' => __( 'SKU', 'ua-marketplace' ),
+						'mrkvuamp_id'  => __( 'Product or variation ID', 'ua-marketplace' ),
+					),
+					'pro'       => true,
+					'row_attrs' => array( 'data-mrkv-uamp-show' => 'nameids:1' ),
+				);
+			}
+			$fields[] = array(
+				'key'        => 'variation_foto_gallery_chk',
+				'type'       => 'checkbox',
+				'label'      => __( 'Variation photos', 'ua-marketplace' ),
+				'text'       => __( 'Use the variation\'s own photos instead of the product photos', 'ua-marketplace' ),
+				'pro'        => true,
+				'attributes' => array( 'data-mrkv-uamp-toggle' => 'gallery' ),
 			);
 			$fields[] = array(
-				'key'         => 'variation_foto_gallery_chk',
-				'type'        => 'checkbox',
-				'label'       => __( 'Variation galleries', 'ua-marketplace' ),
-				'text'        => __( 'Variation photos from Woo Variation Gallery, Variation Images Gallery or Woodmart', 'ua-marketplace' ),
-				'pro'         => true,
+				'key'       => 'variation_gallery_source',
+				'type'      => 'select',
+				'label'     => __( 'Variation gallery', 'ua-marketplace' ),
+				'options'   => array(
+					'main_variation_photo'                     => __( 'Only the variation image', 'ua-marketplace' ),
+					'additional_variation_imgs_gallary_plugin' => __( 'Additional Variation Images Gallery (Woo Variation Gallery)', 'ua-marketplace' ),
+					'variation_imgs_gallary_plugin'            => __( 'Variation Images Gallery for WooCommerce', 'ua-marketplace' ),
+					'woodmart_theme'                           => __( 'Woodmart theme', 'ua-marketplace' ),
+				),
+				'pro'       => true,
+				'row_attrs' => array( 'data-mrkv-uamp-show' => 'gallery:1' ),
 			);
+			$prefix   = 'rozetka' === $slug ? 'mrkv_rozetka' : 'mrkv_promua';
 			$fields[] = array(
 				'key'         => 'product_description',
 				'type'        => 'textarea',
 				'label'       => __( 'Description template', 'ua-marketplace' ),
-				'description' => __( 'Build the feed description from the full, short and variation descriptions.', 'ua-marketplace' ),
+				'description' => sprintf(
+					/* translators: %s: list of shortcodes */
+					__( 'Build the feed description from parts of the product: %s. Empty: the product description. A product\'s own marketplace description always wins.', 'ua-marketplace' ),
+					'[' . $prefix . '_description] [' . $prefix . '_short_description] [' . $prefix . '_variation_description]'
+				),
 				'pro'         => true,
 			);
 			if ( 'promua' === $slug ) {
 				$fields[] = array(
-					'key'   => 'bilingual_preview',
-					'type'  => 'checkbox',
+					'key'   => 'bilingual_note',
+					'type'  => 'note',
 					'label' => __( 'Two languages', 'ua-marketplace' ),
-					'text'  => __( '<name_ua> and <description_ua> from Polylang or WPML translations', 'ua-marketplace' ),
+					'text'  => __( 'With Polylang or WPML, <name_ua> and <description_ua> come from the Ukrainian translation, the other language goes to <name> and <description>.', 'ua-marketplace' ),
 					'pro'   => true,
 				);
 			}
@@ -203,6 +286,9 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 			echo '</th><td>';
 
 			switch ( $field['type'] ) {
+				case 'note':
+					echo '<p>' . esc_html( $field['text'] ) . '</p>';
+					break;
 				case 'select':
 					echo '<select id="' . esc_attr( $id ) . '"' . $name . $attrs . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above
 					foreach ( $field['options'] as $option => $label ) {
@@ -231,7 +317,7 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 		public static function save( string $slug, array $input ): void {
 			foreach ( self::sections( $slug ) as $section ) {
 				foreach ( $section['fields'] as $field ) {
-					if ( self::is_locked( $field ) || ! empty( $field['readonly'] ) ) {
+					if ( self::is_locked( $field ) || ! empty( $field['readonly'] ) || 'note' === $field['type'] ) {
 						continue;
 					}
 					$key = self::option_key( $slug, $field['key'] );

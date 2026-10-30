@@ -161,7 +161,7 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 				'paused'      => array( 'success', __( 'Feed paused: it is no longer updated, the last file stays available.', 'ua-marketplace' ) ),
 				'resumed'     => array( 'success', __( 'Feed resumed.', 'ua-marketplace' ) ),
 				'deleted'     => array( 'success', __( 'Feed deleted.', 'ua-marketplace' ) ),
-				'error'       => array( 'error', __( 'Something went wrong. See WooCommerce → Status → Logs (ua-marketplace).', 'ua-marketplace' ) ),
+				'error'       => array( 'error', /* translators: %s: log source name */ sprintf( __( 'Something went wrong. See WooCommerce → Status → Logs (%s).', 'ua-marketplace' ), MRKV_UAMP_LOG::SOURCE ) ),
 				'dir_updated' => array( 'success', __( 'Rozetka category directory updated.', 'ua-marketplace' ) ),
 				'dir_busy'    => array( 'warning', __( 'The Rozetka category directory is being updated right now. Reload the page in a minute.', 'ua-marketplace' ) ),
 				'dir_error'   => array( 'error', __( 'The Rozetka category directory could not be updated. The reason is shown below.', 'ua-marketplace' ) ),

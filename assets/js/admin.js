@@ -24,11 +24,12 @@
 		}
 	} );
 
-	// Rows shown only for one value of a select: data-mrkv-uamp-show="group:value".
+	// Rows shown only for one value of a select or a ticked checkbox ("1"):
+	// data-mrkv-uamp-show="group:value". A locked (Pro) control shows all its rows as a preview.
 	function toggleRows() {
-		$( '[data-mrkv-uamp-toggle]' ).each( function () {
+		$( '[data-mrkv-uamp-toggle]' ).not( ':disabled' ).each( function () {
 			var group = $( this ).data( 'mrkvUampToggle' );
-			var value = $( this ).val();
+			var value = 'checkbox' === this.type ? ( this.checked ? '1' : '' ) : $( this ).val();
 			$( '[data-mrkv-uamp-show^="' + group + ':"]' ).each( function () {
 				this.hidden = $( this ).data( 'mrkvUampShow' ) !== group + ':' + value;
 			} );

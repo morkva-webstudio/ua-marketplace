@@ -13,7 +13,8 @@ if ( ! class_exists( 'MRKV_UAMP_PRODUCT_FIELDS' ) ) {
 	 * - variation_image (per variation): replace the main picture of that variation's offer.
 	 *
 	 * Titles are also on Quick Edit. WooCommerce checks the nonce and the edit capability before
-	 * every save hook used here. Pro adds fields on `mrkv_uamp_product_fields`.
+	 * every save hook used here. Pro adds fields on `mrkv_uamp_product_fields` /
+	 * `mrkv_uamp_variation_fields` and saves them on the matching `mrkv_uamp_save_*` actions.
 	 */
 	class MRKV_UAMP_PRODUCT_FIELDS {
 		public function register(): void {
@@ -90,36 +91,57 @@ if ( ! class_exists( 'MRKV_UAMP_PRODUCT_FIELDS' ) ) {
 				) );
 
 				if ( 'rozetka' === $slug ) {
-					woocommerce_wp_text_input( array(
-						'id'          => 'mrkvuamp_rozetka_image',
-						'label'       => __( 'Main image URL', 'ua-marketplace' ),
-						'value'       => get_post_meta( $id, 'mrkvuamp_rozetka_image', true ),
-						'data_type'   => 'url',
-						'desc_tip'    => true,
-						'description' => __( 'Replaces the main product image in the feed (HTTPS only).', 'ua-marketplace' ),
-						'custom_attributes' => array( 'data-mrkv-uamp-media' => '1' ),
-					) );
-					// WooCommerce field markup: the label sits in the left column, the editor lines up with the inputs.
-					echo '<p class="form-field mrkvuamp_rozetka_description_field"><label for="mrkvuamp_rozetka_description_editor">' . esc_html__( 'Description on Rozetka', 'ua-marketplace' ) . '</label></p>';
-					echo '<div style="padding: 0 20px 12px 162px; margin-top: -2.2em;">';
-					wp_editor(
-						(string) get_post_meta( $id, 'mrkvuamp_rozetka_description', true ),
-						'mrkvuamp_rozetka_description_editor',
-						array(
-							'textarea_name' => 'mrkvuamp_rozetka_description',
-							'textarea_rows' => 8,
-							'tinymce'       => false,
-							'media_buttons' => false,
-							'teeny'         => true,
-							'quicktags'     => array( 'buttons' => 'strong,em,ul,ol,li,close' ),
-						)
-					);
-					echo '<p class="description">' . esc_html__( 'Replaces the product description in the feed. Leave empty to use the product description.', 'ua-marketplace' ) . '</p></div>';
+					self::image_field( $slug, $id );
+					self::description_field( $slug, $id, __( 'Description on Rozetka', 'ua-marketplace' ) );
 				}
 
 				do_action( 'mrkv_uamp_product_fields', $slug, $id );
 				echo '</div></div>';
 			}
+		}
+
+		/** Main image URL override (`mrkvuamp_{slug}_image`) with a media library button. */
+		public static function image_field( string $slug, int $id ): void {
+			woocommerce_wp_text_input( array(
+				'id'                => 'mrkvuamp_' . $slug . '_image',
+				'label'             => __( 'Main image URL', 'ua-marketplace' ),
+				'value'             => get_post_meta( $id, 'mrkvuamp_' . $slug . '_image', true ),
+				'data_type'         => 'url',
+				'desc_tip'          => true,
+				'description'       => __( 'Replaces the main product image in the feed (HTTPS only).', 'ua-marketplace' ),
+				'custom_attributes' => array( 'data-mrkv-uamp-media' => '1' ),
+			) );
+		}
+
+		/** Description override (`mrkvuamp_{slug}_description`) in WooCommerce field markup. */
+		public static function description_field( string $slug, int $id, string $label ): void {
+			$key = 'mrkvuamp_' . $slug . '_description';
+			// The label sits in the left column, the editor lines up with the inputs.
+			echo '<p class="form-field ' . esc_attr( $key ) . '_field"><label for="' . esc_attr( $key ) . '_editor">' . esc_html( $label ) . '</label></p>';
+			echo '<div style="padding: 0 20px 12px 162px; margin-top: -2.2em;">';
+			wp_editor(
+				(string) get_post_meta( $id, $key, true ),
+				$key . '_editor',
+				array(
+					'textarea_name' => $key,
+					'textarea_rows' => 8,
+					'tinymce'       => false,
+					'media_buttons' => false,
+					'teeny'         => true,
+					'quicktags'     => array( 'buttons' => 'strong,em,ul,ol,li,close' ),
+				)
+			);
+			echo '<p class="description">' . esc_html__( 'Replaces the product description in the feed. Leave empty to use the product description.', 'ua-marketplace' ) . '</p></div>';
+		}
+
+		/** Saves image_field() and description_field() of $slug from the product form. */
+		public static function save_image_and_description( string $slug, int $post_id ): void {
+			// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verified woocommerce_meta_nonce before the save hooks
+			$image       = 'mrkvuamp_' . $slug . '_image';
+			$description = 'mrkvuamp_' . $slug . '_description';
+			self::update_or_delete( $post_id, $image, isset( $_POST[ $image ] ) ? esc_url_raw( wp_unslash( $_POST[ $image ] ) ) : '' );
+			self::update_or_delete( $post_id, $description, isset( $_POST[ $description ] ) ? wp_kses_post( wp_unslash( $_POST[ $description ] ) ) : '' );
+			// phpcs:enable
 		}
 
 		public function save( $post_id ): void {
@@ -128,11 +150,10 @@ if ( ! class_exists( 'MRKV_UAMP_PRODUCT_FIELDS' ) ) {
 				// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verified woocommerce_meta_nonce before this hook
 				self::update_or_delete( $post_id, 'mrkvuamp_' . $slug . '_not_xml', isset( $_POST[ 'mrkvuamp_' . $slug . '_not_xml' ] ) ? 'yes' : '' );
 				self::update_or_delete( $post_id, 'mrkvuamp_' . $slug . '_title', isset( $_POST[ 'mrkvuamp_' . $slug . '_title' ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'mrkvuamp_' . $slug . '_title' ] ) ) : '' );
-				if ( 'rozetka' === $slug ) {
-					self::update_or_delete( $post_id, 'mrkvuamp_rozetka_image', isset( $_POST['mrkvuamp_rozetka_image'] ) ? esc_url_raw( wp_unslash( $_POST['mrkvuamp_rozetka_image'] ) ) : '' );
-					self::update_or_delete( $post_id, 'mrkvuamp_rozetka_description', isset( $_POST['mrkvuamp_rozetka_description'] ) ? wp_kses_post( wp_unslash( $_POST['mrkvuamp_rozetka_description'] ) ) : '' );
-				}
 				// phpcs:enable
+				if ( 'rozetka' === $slug ) {
+					self::save_image_and_description( $slug, $post_id );
+				}
 				do_action( 'mrkv_uamp_save_product_fields', $slug, $post_id );
 			}
 		}
@@ -150,6 +171,7 @@ if ( ! class_exists( 'MRKV_UAMP_PRODUCT_FIELDS' ) ) {
 					'desc_tip'      => true,
 					'description'   => __( 'Replaces the main picture of this variation in the feed.', 'ua-marketplace' ),
 				) );
+				do_action( 'mrkv_uamp_variation_fields', $slug, $loop, $variation );
 			}
 		}
 
@@ -160,6 +182,7 @@ if ( ! class_exists( 'MRKV_UAMP_PRODUCT_FIELDS' ) ) {
 				if ( isset( $_POST[ $key ][ $loop ] ) ) {
 					self::update_or_delete( (int) $variation_id, $key, esc_url_raw( wp_unslash( $_POST[ $key ][ $loop ] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				}
+				do_action( 'mrkv_uamp_save_variation_fields', $slug, (int) $variation_id, (int) $loop );
 			}
 		}
 
@@ -199,7 +222,7 @@ if ( ! class_exists( 'MRKV_UAMP_PRODUCT_FIELDS' ) ) {
 			}
 		}
 
-		private static function update_or_delete( int $post_id, string $key, string $value ): void {
+		public static function update_or_delete( int $post_id, string $key, string $value ): void {
 			if ( '' === $value ) {
 				delete_post_meta( $post_id, $key );
 			} else {
