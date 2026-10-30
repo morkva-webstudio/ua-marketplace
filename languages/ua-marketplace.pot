@@ -1,0 +1,776 @@
+# Copyright (C) 2026 morkva
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: UA Marketplace 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ua-marketplace\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-30T14:34:17+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ua-marketplace\n"
+
+#. Plugin Name of the plugin
+#: morkvawrs-plugin.php
+msgid "UA Marketplace"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: morkvawrs-plugin.php
+msgid "https://morkva.co.ua/shop-2/woocommerce-rozetka-sync"
+msgstr ""
+
+#. Description of the plugin
+#: morkvawrs-plugin.php
+msgid "XML feeds for Rozetka and Prom.ua from your WooCommerce catalog, generated in the background in small batches."
+msgstr ""
+
+#. Author of the plugin
+#: morkvawrs-plugin.php
+msgid "morkva"
+msgstr ""
+
+#. Author URI of the plugin
+#: morkvawrs-plugin.php
+msgid "https://morkva.co.ua"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:54
+#: classes/admin/mrkv-uamp-admin.php:267
+msgid "Settings"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:86
+msgid "Copied"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:87
+msgid "Searching…"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:88
+msgid "Nothing found. You can also type a Rozetka category ID."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:89
+msgid "Type a category name or ID"
+msgstr ""
+
+#. translators: %s: Rozetka category ID typed in the picker
+#: classes/admin/mrkv-uamp-admin.php:91
+#, php-format
+msgid "Use Rozetka ID %s"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:92
+msgid "Changing the folder or file name changes the feed URL. Update it in the marketplace cabinet afterwards. Continue?"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:104
+msgid "Feeds"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:157
+msgid "Settings saved. They apply from the next feed build."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:158
+msgid "Feed created. Fill in the settings below, then build the feed."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:159
+msgid "The build has started in the background. You can leave this page."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:160
+msgid "The feed is being written right now. Try again in a minute."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:161
+msgid "Feed paused: it is no longer updated, the last file stays available."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:162
+msgid "Feed resumed."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:163
+msgid "Feed deleted."
+msgstr ""
+
+#. translators: %s: log source name
+#: classes/admin/mrkv-uamp-admin.php:164
+#, php-format
+msgid "Something went wrong. See WooCommerce → Status → Logs (%s)."
+msgstr ""
+
+#. translators: %s: log source name
+#: classes/admin/mrkv-uamp-admin.php:165
+msgid "Rozetka category directory updated."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:166
+msgid "The Rozetka category directory is being updated right now. Reload the page in a minute."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:167
+msgid "The Rozetka category directory could not be updated. The reason is shown below."
+msgstr ""
+
+#. translators: %s: list of marketplaces
+#: classes/admin/mrkv-uamp-admin.php:188
+#, php-format
+msgid "UA Marketplace 2.0: your feeds (%s) were moved to the new settings. Feed URLs did not change, so nothing needs updating in the marketplace cabinets. The feeds are being rebuilt in the background."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:191
+msgid "Open the feeds"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:205
+msgid "Each feed is an XML file the marketplace downloads on its own schedule. Copy its URL into the marketplace cabinet once; it never changes."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:212
+#: classes/admin/mrkv-uamp-admin.php:237
+msgid "Marketplace"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:213
+#: classes/admin/mrkv-uamp-admin.php:417
+#: classes/admin/mrkv-uamp-admin.php:420
+msgid "Feed URL"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:214
+msgid "Status"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:215
+msgid "Build"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:226
+msgid "No feeds yet. Add one for each marketplace you sell on."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:232
+msgid "Add a feed"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:243
+msgid "Add feed"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:262
+msgid "Paused"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:264
+msgid "Active"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:268
+msgid "Resume"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:268
+msgid "Pause"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:269
+msgid "Delete"
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-admin.php:274
+#, php-format
+msgid "%s feed URL"
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-admin.php:275
+#: classes/admin/mrkv-uamp-admin.php:421
+msgid "Copy"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:278
+msgid "Open"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:280
+msgid "The file appears after the first build."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:288
+msgid "Not updated while paused"
+msgstr ""
+
+#. translators: 1: next update time, 2: schedule such as "Once a day"
+#: classes/admin/mrkv-uamp-admin.php:291
+#, php-format
+msgid "Next: %1$s (%2$s)"
+msgstr ""
+
+#. translators: 1: next update time, 2: schedule such as "Once a day"
+#: classes/admin/mrkv-uamp-admin.php:291
+msgid "scheduling…"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:304
+msgid "Restart build"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:304
+msgid "Build now"
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-admin.php:330
+#, php-format
+msgid "Delete the %s feed?"
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-admin.php:331
+msgid "The feed stops updating. If the marketplace still downloads this URL, keep the file so your products are not taken off the marketplace until you remove the price list there."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:333
+msgid "Settings and category mapping are kept: adding the feed again restores them."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:339
+msgid "Also delete the XML file"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:341
+msgid "Delete feed"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:342
+msgid "Cancel"
+msgstr ""
+
+#. translators: 1: products done, 2: products total
+#: classes/admin/mrkv-uamp-admin.php:351
+#, php-format
+msgid "Building: %1$d of %2$d products"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:359
+msgid "Not built yet"
+msgstr ""
+
+#. translators: 1: date and time, 2: number of offers
+#: classes/admin/mrkv-uamp-admin.php:363
+#, php-format
+msgid "%1$s · %2$d offer"
+msgid_plural "%1$s · %2$d offers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/admin/mrkv-uamp-admin.php:371
+msgid "Every hour"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:372
+msgid "Every 4 hours"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:373
+msgid "Twice a day"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:374
+msgid "Once a day"
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-admin.php:404
+#, php-format
+msgid "Save %s settings"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:414
+msgid "Feed file and updates"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:426
+msgid "Folder and file name"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:429
+msgid "Folder"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:436
+msgid "Update"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:444
+msgid "The free version rebuilds every feed once a day. Rozetka downloads price lists every hour."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:449
+msgid "Products per query"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:452
+msgid "The feed is built in short background steps of about 20 seconds, so the server time limit never matters. Lower this only if builds stop with memory errors."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:463
+msgid "You are not allowed to manage marketplace feeds."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:474
+msgid "This action needs a form submission."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:21
+msgid "Category mapping"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:23
+msgid "Pick the Rozetka category for each of your categories. Only products from mapped categories and their subcategories go into the feed."
+msgstr ""
+
+#. translators: 1: mapped categories, 2: all categories
+#: classes/admin/mrkv-uamp-mapping-ui.php:30
+#, php-format
+msgid "%1$d of %2$d categories mapped"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:40
+msgid "Your shop has no product categories yet."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:48
+msgid "Your category"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:49
+msgid "Rozetka category"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:68
+msgid "— Not exported —"
+msgstr ""
+
+#. translators: 1: number of Rozetka categories, 2: date
+#: classes/admin/mrkv-uamp-mapping-ui.php:88
+#, php-format
+msgid "Rozetka directory: %1$d category, updated %2$s"
+msgid_plural "Rozetka directory: %1$d categories, updated %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:93
+msgid "The Rozetka category directory is loading in the background. Until then, type a Rozetka category ID in the picker."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-mapping-ui.php:95
+msgid "Refresh"
+msgstr ""
+
+#. translators: %s: reason
+#: classes/admin/mrkv-uamp-mapping-ui.php:99
+#, php-format
+msgid "Could not update the Rozetka category directory: %s. Type a Rozetka category ID in the picker meanwhile."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:53
+msgid "Choose an image"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:54
+msgid "Use this image"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:79
+msgid "Leave out of the feed"
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-product-fields.php:81
+#, php-format
+msgid "Do not send this product to %s."
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-product-fields.php:87
+#, php-format
+msgid "Name on %s"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:90
+msgid "Replaces the product name in the feed. Variations keep their attributes after it."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:95
+msgid "Description on Rozetka"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:107
+msgid "Main image URL"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:111
+msgid "Replaces the main product image in the feed (HTTPS only)."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:134
+msgid "Replaces the product description in the feed. Leave empty to use the product description."
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-product-fields.php:167
+#, php-format
+msgid "%s image URL"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:172
+msgid "Replaces the main picture of this variation in the feed."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-product-fields.php:196
+msgid "Marketplace names"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:25
+msgid "Shop"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:30
+msgid "Shop name"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:32
+msgid "The <name> of the shop in the feed. Empty: the site title."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:37
+msgid "Company"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:39
+msgid "Legal name of the seller. Empty: the site tagline."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:45
+msgid "Brand"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:47
+msgid "Rozetka requires a brand (<vendor>) for every product and groups variations only within one brand."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:48
+msgid "Prom imports a brand only if it exists in the Prom brand list."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:53
+msgid "One brand for all products"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:54
+msgid "When set, every product gets this brand and the source below is ignored."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:59
+msgid "Brand source"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:61
+msgid "— Not set —"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:62
+msgid "WooCommerce Brands"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:63
+msgid "Perfect Brands for WooCommerce"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:64
+msgid "Product attribute"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:65
+msgid "Custom field (post meta)"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:72
+msgid "Brand attribute"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:79
+msgid "Custom field key"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:81
+msgid "The meta key that holds the brand name on the product."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:88
+msgid "Products and prices"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:112
+msgid "Name and description tags"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:117
+msgid "Choose <name_ua> when your product texts are in Ukrainian; Rozetka translates the other language automatically."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:122
+#: classes/admin/mrkv-uamp-settings.php:137
+msgid "Sale price"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:123
+msgid "Send the sale price as <price> and the regular price as <price_old>"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:129
+msgid "Promo price"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:130
+msgid "Send <price_promo> from the product's \"Rozetka promo price\" field"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:138
+msgid "A product on sale is sent with the sale price as <price> and the regular price as <oldprice>."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:145
+msgid "Price formula"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:146
+msgid "Change every price in the feed"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:153
+msgid "Formula"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:155
+msgid "One operation on the price: *1.15, +50 or -20."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:163
+msgid "Rounding"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:165
+msgid "Do not round"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:166
+msgid "One decimal place"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:167
+msgid "Two decimal places"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:168
+msgid "Whole number"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:178
+msgid "Code in the name"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:179
+msgid "Add the SKU or the product ID to the name in brackets"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:186
+msgid "Code"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:188
+msgid "SKU"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:189
+msgid "Product or variation ID"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:198
+msgid "Variation photos"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:199
+msgid "Use the variation's own photos instead of the product photos"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:206
+msgid "Variation gallery"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:208
+msgid "Only the variation image"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:209
+msgid "Additional Variation Images Gallery (Woo Variation Gallery)"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:210
+msgid "Variation Images Gallery for WooCommerce"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:211
+msgid "Woodmart theme"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:220
+msgid "Description template"
+msgstr ""
+
+#. translators: %s: list of shortcodes
+#: classes/admin/mrkv-uamp-settings.php:223
+#, php-format
+msgid "Build the feed description from parts of the product: %s. Empty: the product description. A product's own marketplace description always wins."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:232
+msgid "Two languages"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:233
+msgid "With Polylang or WPML, <name_ua> and <description_ua> come from the Ukrainian translation, the other language goes to <name> and <description>."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:242
+msgid "— Choose an attribute —"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:26
+msgid "Like this plugin?"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:28
+msgid "Support our efforts with a 5-star review at"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:32
+msgid "Leave a review"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:35
+msgid "Not good enough for 5 stars? Contact us via the widget on our website, or check the documentation."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:37
+#: classes/admin/mrkv-uamp-sidebar.php:57
+msgid "Go to the website"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:38
+#: classes/admin/mrkv-uamp-sidebar.php:58
+msgid "Documentation"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:43
+msgid "Check out the Pro version"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:45
+msgid "Hourly feed updates"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:46
+msgid "Sale and promo prices, price formulas"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:47
+msgid "Variation photo galleries"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:48
+msgid "Prom keywords, catalog category and two languages"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:49
+msgid "Description templates, SKU in the name, own feed file names"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:51
+msgid "Buy the Pro version"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:55
+msgid "Need help?"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:78
+msgid "Other free plugins"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:79
+msgid "All our plugins are cross-compatible"
+msgstr ""
+
+#: classes/feeds/mrkv-uamp-builder.php:58
+msgid "Could not create the feed folder in uploads."
+msgstr ""
+
+#: classes/feeds/mrkv-uamp-builder.php:64
+#: classes/feeds/mrkv-uamp-builder.php:127
+#: classes/feeds/mrkv-uamp-builder.php:186
+msgid "Could not write to the feed folder in uploads."
+msgstr ""
+
+#: classes/feeds/mrkv-uamp-builder.php:103
+msgid "The temporary feed file disappeared during the build; a new build will start on the next run."
+msgstr ""
+
+#. translators: %s: log source name
+#: classes/feeds/mrkv-uamp-builder.php:192
+#, php-format
+msgid "The new feed is not valid XML, so the previous file was kept. See WooCommerce → Status → Logs (%s)."
+msgstr ""
+
+#: classes/feeds/mrkv-uamp-builder.php:199
+msgid "The new feed has no products, so the previous file was kept. Check the category mapping and product filters."
+msgstr ""
+
+#: classes/feeds/mrkv-uamp-builder.php:203
+msgid "Could not replace the feed file. Check the folder permissions in uploads."
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: classes/rozetka/mrkv-uamp-rozetka-importer.php:81
+#, php-format
+msgid "the server answered with HTTP %d"
+msgstr ""
+
+#: classes/rozetka/mrkv-uamp-rozetka-importer.php:86
+msgid "the downloaded file does not match its checksum"
+msgstr ""
+
+#. translators: %d: number of categories in the file
+#: classes/rozetka/mrkv-uamp-rozetka-importer.php:91
+#, php-format
+msgid "the file has only %d valid categories"
+msgstr ""
+
+#: classes/rozetka/mrkv-uamp-rozetka-importer.php:94
+msgid "the categories could not be saved to the database"
+msgstr ""
+
+#: morkvawrs-plugin.php:47
+msgid "UA Marketplace (free) is idle because UA Marketplaces Pro is active. Your feeds and settings are handled by Pro; you can deactivate the free plugin."
+msgstr ""

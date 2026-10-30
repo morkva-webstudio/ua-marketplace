@@ -43,10 +43,10 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 						<h3><?php esc_html_e( 'Check out the Pro version', 'ua-marketplace' ); ?></h3>
 						<ul class="mrkv-uamp-sidebar__features">
 							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Hourly feed updates', 'ua-marketplace' ); ?></li>
-							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Sale prices and price formulas', 'ua-marketplace' ); ?></li>
+							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Sale and promo prices, price formulas', 'ua-marketplace' ); ?></li>
 							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Variation photo galleries', 'ua-marketplace' ); ?></li>
-							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Prom category mapping, keywords and two languages', 'ua-marketplace' ); ?></li>
-							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Rozetka category search on Rozetka itself', 'ua-marketplace' ); ?></li>
+							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Prom keywords, catalog category and two languages', 'ua-marketplace' ); ?></li>
+							<li><span class="dashicons dashicons-yes" aria-hidden="true"></span><?php esc_html_e( 'Description templates, SKU in the name, own feed file names', 'ua-marketplace' ); ?></li>
 						</ul>
 						<a class="button button-primary" href="<?php echo esc_url( self::utm( self::PRO_URL ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Buy the Pro version', 'ua-marketplace' ); ?></a>
 					</div>
