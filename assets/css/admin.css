@@ -1,0 +1,217 @@
+/* WooCommerce → UA Marketplace. Native WP admin markup; this file only lays it out. */
+
+.mrkv-uamp-layout {
+	display: flex;
+	gap: 20px;
+	align-items: flex-start;
+	margin-top: 20px;
+}
+
+.mrkv-uamp-main {
+	flex: 3;
+	min-width: 0;
+	/* A wide table scrolls here instead of sliding under the sidebar. */
+	overflow-x: auto;
+}
+
+.mrkv-uamp-main > h2:first-child,
+.mrkv-uamp-settings > h2:first-of-type {
+	margin-top: 0;
+}
+
+/* Feeds table */
+
+.mrkv-uamp-feeds td {
+	vertical-align: top;
+}
+
+.mrkv-uamp-feeds .column-primary {
+	width: 22%;
+}
+
+.mrkv-uamp-feeds .column-primary .mrkv-uamp-badge {
+	margin-left: 6px;
+}
+
+.mrkv-uamp-url {
+	display: flex;
+	gap: 4px;
+	max-width: 520px;
+}
+
+.mrkv-uamp-feeds .mrkv-uamp-url input {
+	width: auto;
+}
+
+.mrkv-uamp-url input {
+	flex: 1;
+	min-width: 0;
+}
+
+.mrkv-uamp-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 10px;
+	font-size: 12px;
+	line-height: 1.6;
+}
+
+.mrkv-uamp-badge--active {
+	background: #edfaef;
+	color: #00631a;
+}
+
+.mrkv-uamp-badge--paused {
+	background: #f0f0f1;
+	color: #50575e;
+}
+
+.mrkv-uamp-progress {
+	margin-top: 6px;
+}
+
+.mrkv-uamp-progress progress {
+	width: 100%;
+	max-width: 180px;
+	display: block;
+}
+
+.mrkv-uamp-progress__text {
+	font-size: 12px;
+	color: #50575e;
+}
+
+.mrkv-uamp-error {
+	color: #b32d2e;
+	margin: 6px 0 0;
+}
+
+.mrkv-uamp-actions {
+	width: 1%;
+	white-space: nowrap;
+	text-align: right;
+}
+
+.mrkv-uamp-inline-form {
+	display: inline-block;
+	margin: 0;
+}
+
+
+.mrkv-uamp-add {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.mrkv-uamp-empty {
+	background: #fff;
+	border: 1px dashed #c3c4c7;
+	padding: 8px 16px;
+	margin-bottom: 16px;
+}
+
+/* Marketplace tab */
+
+.mrkv-uamp-locked th,
+.mrkv-uamp-locked td {
+	opacity: 0.6;
+}
+
+.mrkv-uamp-pro-badge {
+	display: inline-block;
+	margin-left: 4px;
+	padding: 0 6px;
+	border-radius: 3px;
+	background: #2271b1;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 18px;
+	vertical-align: middle;
+}
+
+.mrkv-uamp-short {
+	width: 14em;
+}
+
+.mrkv-uamp-mapping td {
+	vertical-align: middle;
+}
+
+.mrkv-uamp-mapping td:first-child {
+	width: 40%;
+}
+
+.mrkv-uamp-mapping-summary {
+	margin-bottom: 8px;
+}
+
+[data-mrkv-uamp-show][hidden] {
+	display: none;
+}
+
+/* Sidebar (same cards as the other free morkva plugins) */
+
+.mrkv-uamp-sidebar {
+	flex: 1;
+	min-width: 250px;
+	max-width: 340px;
+}
+
+.mrkv-uamp-sidebar__card {
+	background: #fff;
+	padding: 20px;
+	border: 1px solid #ccd0d4;
+	border-radius: 4px;
+	margin-bottom: 15px;
+}
+
+.mrkv-uamp-sidebar__card h3 {
+	margin-top: 0;
+}
+
+.mrkv-uamp-sidebar__card .button {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.mrkv-uamp-sidebar__card .button .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	line-height: 1;
+}
+
+.mrkv-uamp-sidebar__card .button .dashicons + .dashicons {
+	margin-left: -4px;
+}
+
+.mrkv-uamp-sidebar__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.mrkv-uamp-sidebar__features .dashicons {
+	color: #00a32a;
+	margin-right: 4px;
+}
+
+.mrkv-uamp-sidebar__plugins {
+	list-style: disc;
+	padding-left: 17px;
+}
+
+@media (max-width: 960px) {
+	.mrkv-uamp-layout {
+		flex-direction: column;
+	}
+
+	.mrkv-uamp-sidebar {
+		width: 100%;
+		max-width: none;
+	}
+
+}

@@ -1,61 +1,81 @@
 <?php
 /**
- * @link              https://morkva.co.ua/shop-2/woocommerce-rozetka-sync
- * @since             0.0.3
- * @package           MrkvUAMmarketplaces
- *
- * @wordpress-plugin
  * Plugin Name:       UA Marketplace
  * Plugin URI:        https://morkva.co.ua/shop-2/woocommerce-rozetka-sync
- * Description:       Забезпечує взаїмодію WooCommerce інетернет-магазину з маркетплейсами Rozetka та PromUA.
- * Version:           1.4.20
- * Author:            MORKVA
+ * Description:       XML feeds for Rozetka and Prom.ua from your WooCommerce catalog, generated in the background in small batches.
+ * Version:           2.0.0
+ * Requires at least: 6.5
+ * Requires PHP:      7.4
+ * Requires Plugins:  woocommerce
+ * Author:            morkva
  * Author URI:        https://morkva.co.ua
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       mrkv-ua-marketplaces
+ * License:           GPLv2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:       ua-marketplace
  * Domain Path:       /languages
- * WC requires at least: 3.8
- * WC tested up to: 9.8
- * Tested up to: 7.1
+ * WC requires at least: 8.0
+ * WC tested up to:   11.1
+ *
+ * @package MrkvUAMP
  */
 
- // If this file is called directly, abort.
- defined( 'ABSPATH' ) or die();
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
- add_action( 'before_woocommerce_init', function() {
-    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-    }
+/** Pro is a standalone copy of this plugin with the same class names: with Pro active, Free loads nothing. */
+define( 'MRKV_UAMP_FREE_PRO_BASENAME', 'ua-marketplaces-pro/ua-marketplaces-pro.php' );
+
+function mrkv_uamp_free_is_pro_active() {
+	$active = (array) get_option( 'active_plugins', array() );
+	if ( in_array( MRKV_UAMP_FREE_PRO_BASENAME, $active, true ) ) {
+		return true;
+	}
+	if ( is_multisite() ) {
+		$network = (array) get_site_option( 'active_sitewide_plugins', array() );
+		return isset( $network[ MRKV_UAMP_FREE_PRO_BASENAME ] );
+	}
+	return false;
+}
+
+if ( mrkv_uamp_free_is_pro_active() ) {
+	add_action( 'admin_notices', function () {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+		echo '<div class="notice notice-info is-dismissible"><p>'
+			. esc_html__( 'UA Marketplace (free) is idle because UA Marketplaces Pro is active. Your feeds and settings are handled by Pro; you can deactivate the free plugin.', 'ua-marketplace' )
+			. '</p></div>';
+	} );
+	return;
+}
+
+define( 'MRKV_UAMP_VERSION', '2.0.0' );
+define( 'MRKV_UAMP_FILE', __FILE__ );
+define( 'MRKV_UAMP_DIR', plugin_dir_path( __FILE__ ) );
+define( 'MRKV_UAMP_URL', plugin_dir_url( __FILE__ ) );
+define( 'MRKV_UAMP_IS_PRO', false );
+define( 'MRKV_UAMP_TEXT_DOMAIN', 'ua-marketplace' );
+
+add_action( 'before_woocommerce_init', function () {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
+	}
 } );
 
-// If this file is called directly, abort.
-defined( 'ABSPATH' ) or die();
+require_once MRKV_UAMP_DIR . 'classes/mrkv-uamp-run.php';
 
-// Require once the Composer Autoload
-if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
-}
+add_action( 'plugins_loaded', function () {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+	MRKV_UAMP_RUN::instance();
+} );
 
-/**
- * The code that runs during plugin activation
- */
-function activate_ua_marketplace_plugin() {
-	Inc\Base\Activate::activate();
-}
-register_activation_hook( __FILE__, 'activate_ua_marketplace_plugin' );
+add_action( 'init', function () {
+	load_plugin_textdomain( 'ua-marketplace', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+} );
 
-/**
- * The code that runs during plugin deactivation
- */
-function deactivate_ua_marketplace_plugin() {
-	Inc\Base\Deactivate::deactivate();
-}
-register_deactivation_hook( __FILE__, 'deactivate_ua_marketplace_plugin' );
-
-/**
- * Initialize all the core classes of the plugin
- */
-if ( class_exists( 'Inc\\Init' ) ) {
-	Inc\Init::register_services();
-}
+register_activation_hook( __FILE__, array( 'MRKV_UAMP_RUN', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'MRKV_UAMP_RUN', 'deactivate' ) );
