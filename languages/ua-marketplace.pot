@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T06:20:59+00:00\n"
+"POT-Creation-Date: 2026-10-31T07:26:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ua-marketplace\n"
@@ -678,110 +678,140 @@ msgstr ""
 msgid "— Choose an attribute —"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:22
+#: classes/admin/mrkv-uamp-sidebar.php:24
 msgid "Like this plugin?"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:24
+#: classes/admin/mrkv-uamp-sidebar.php:26
 msgid "Support our efforts with a 5-star review at"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:28
+#: classes/admin/mrkv-uamp-sidebar.php:30
 msgid "Leave a review"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:31
+#: classes/admin/mrkv-uamp-sidebar.php:33
 msgid "Not good enough for 5 stars? Contact us via the widget on our website, or check the documentation."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:33
-#: classes/admin/mrkv-uamp-sidebar.php:53
+#: classes/admin/mrkv-uamp-sidebar.php:35
 msgid "Go to the website"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:34
-#: classes/admin/mrkv-uamp-sidebar.php:54
+#: classes/admin/mrkv-uamp-sidebar.php:36
+#: classes/admin/mrkv-uamp-sidebar.php:57
 msgid "Documentation"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:39
+#: classes/admin/mrkv-uamp-sidebar.php:41
 msgid "Check out the Pro version"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:41
+#: classes/admin/mrkv-uamp-sidebar.php:43
 msgid "Hourly feed updates"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:42
+#: classes/admin/mrkv-uamp-sidebar.php:44
 msgid "Sale and promo prices, price formulas"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:43
+#: classes/admin/mrkv-uamp-sidebar.php:45
 msgid "Variation photo galleries"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:44
+#: classes/admin/mrkv-uamp-sidebar.php:46
 msgid "Prom keywords, catalog category and two languages"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:45
+#: classes/admin/mrkv-uamp-sidebar.php:47
 msgid "Description templates, SKU in the name, own feed file names"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:47
+#: classes/admin/mrkv-uamp-sidebar.php:49
 msgid "Buy the Pro version"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:51
+#: classes/admin/mrkv-uamp-sidebar.php:53
 msgid "Need help?"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:68
+#: classes/admin/mrkv-uamp-sidebar.php:54
+msgid "Facing difficulties or need a custom development?"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:56
+msgid "Email us"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:74
+msgid "Other plugins"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:74
 msgid "Other free plugins"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:69
+#: classes/admin/mrkv-uamp-sidebar.php:75
 msgid "All our plugins are cross-compatible"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:85
+#: classes/admin/mrkv-uamp-sidebar.php:92
+#: classes/admin/mrkv-uamp-sidebar.php:108
 msgid "Nova Poshta, Ukrposhta and Rozetka Delivery shipping"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:86
+#: classes/admin/mrkv-uamp-sidebar.php:93
 msgid "Nova Post shipping"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:87
+#: classes/admin/mrkv-uamp-sidebar.php:94
+#: classes/admin/mrkv-uamp-sidebar.php:109
 msgid "e-receipts with Checkbox"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:88
+#: classes/admin/mrkv-uamp-sidebar.php:95
 msgid "e-receipts with Vchasno.Kasa"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:89
+#: classes/admin/mrkv-uamp-sidebar.php:96
+#: classes/admin/mrkv-uamp-sidebar.php:110
 msgid "Monobank card payments"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:90
+#: classes/admin/mrkv-uamp-sidebar.php:97
+#: classes/admin/mrkv-uamp-sidebar.php:111
 msgid "PrivatBank LiqPay card payments"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:91
+#: classes/admin/mrkv-uamp-sidebar.php:98
 msgid "NovaPay payments"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:92
+#: classes/admin/mrkv-uamp-sidebar.php:99
+#: classes/admin/mrkv-uamp-sidebar.php:115
 msgid "one-click order button"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:93
+#: classes/admin/mrkv-uamp-sidebar.php:100
+#: classes/admin/mrkv-uamp-sidebar.php:116
 msgid "videos in product galleries"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-sidebar.php:94
+#: classes/admin/mrkv-uamp-sidebar.php:101
+#: classes/admin/mrkv-uamp-sidebar.php:117
 msgid "reminds customers to review their purchases"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:112
+msgid "PayPal and Stripe payments through WesternBid"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:113
+msgid "integration with Dilovod"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-sidebar.php:114
+msgid "extended KeyCRM integration"
 msgstr ""
 
 #: classes/feeds/mrkv-uamp-builder.php:58

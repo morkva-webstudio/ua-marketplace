@@ -5,14 +5,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 	/**
-	 * Right sidebar on the plugin page: review, Pro, other morkva plugins. Same cards as the other
-	 * free morkva plugins (mrkv-iban-gateway-free).
+	 * Right sidebar on the plugin page. Free: review, Pro, our other free plugins on wordpress.org.
+	 * Pro: support email, our other Pro plugins on morkva.co.ua. Same cards as the other morkva
+	 * plugins (mrkv-iban-gateway-free).
 	 */
 	class MRKV_UAMP_SIDEBAR {
 		const WPORG_URL = 'https://wordpress.org/plugins/ua-marketplace/';
 		const PRO_URL   = 'https://morkva.co.ua/shop/ua-marketplaces-pro/';
 		const SITE_URL  = 'https://morkva.co.ua/';
 		const DOCS_URL  = 'https://docs.morkva.co.ua/uk';
+		const SUPPORT   = 'support@morkva.co.ua';
 
 		public static function render(): void {
 			?>
@@ -49,8 +51,9 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 				<?php else : ?>
 					<div class="mrkv-uamp-sidebar__card">
 						<h3><?php esc_html_e( 'Need help?', 'ua-marketplace' ); ?></h3>
+						<p><?php esc_html_e( 'Facing difficulties or need a custom development?', 'ua-marketplace' ); ?></p>
 						<div class="mrkv-uamp-sidebar__buttons">
-							<a class="button button-primary" href="<?php echo esc_url( self::utm( self::SITE_URL ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Go to the website', 'ua-marketplace' ); ?></a>
+							<a class="button button-primary" href="<?php echo esc_url( 'mailto:' . self::SUPPORT ); ?>"><?php esc_html_e( 'Email us', 'ua-marketplace' ); ?></a>
 							<a class="button" href="<?php echo esc_url( self::utm( self::DOCS_URL ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Documentation', 'ua-marketplace' ); ?></a>
 						</div>
 					</div>
@@ -61,16 +64,20 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 			<?php
 		}
 
-		/** "Other free plugins" card: our plugins on wordpress.org, each linked to its free version there. */
+		/**
+		 * Free: "Other free plugins", each linked to its wordpress.org page.
+		 * Pro: "Other plugins", each linked to its Pro page on morkva.co.ua (with UTM tags).
+		 */
 		private static function other_plugins(): void {
 			?>
 			<div class="mrkv-uamp-sidebar__card">
-				<h3><?php esc_html_e( 'Other free plugins', 'ua-marketplace' ); ?></h3>
+				<h3><?php echo esc_html( MRKV_UAMP_IS_PRO ? __( 'Other plugins', 'ua-marketplace' ) : __( 'Other free plugins', 'ua-marketplace' ) ); ?></h3>
 				<p><?php esc_html_e( 'All our plugins are cross-compatible', 'ua-marketplace' ); ?></p>
 				<ul class="mrkv-uamp-sidebar__plugins">
-					<?php foreach ( self::free_plugins() as $slug => $plugin ) : ?>
+					<?php foreach ( MRKV_UAMP_IS_PRO ? self::pro_plugins() : self::free_plugins() as $slug => $plugin ) : ?>
+						<?php $url = MRKV_UAMP_IS_PRO ? self::utm( self::SITE_URL . 'shop/' . $slug . '/' ) : 'https://wordpress.org/plugins/' . $slug . '/'; ?>
 						<li>
-							<a href="<?php echo esc_url( 'https://wordpress.org/plugins/' . $slug . '/' ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $plugin[0] ); ?></a>
+							<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $plugin[0] ); ?></a>
 							<span>&ndash; <?php echo esc_html( $plugin[1] ); ?></span>
 						</li>
 					<?php endforeach; ?>
@@ -92,6 +99,22 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 				'morkva-buy-one-click'   => array( 'morkva Quick Order Button', __( 'one-click order button', 'ua-marketplace' ) ),
 				'morkva-product-video'   => array( 'morkva Product Video', __( 'videos in product galleries', 'ua-marketplace' ) ),
 				'mrkv-review-reminder'   => array( 'morkva Product Review Reminder', __( 'reminds customers to review their purchases', 'ua-marketplace' ) ),
+			);
+		}
+
+		/** morkva.co.ua shop slug => array( name, what it does ). */
+		private static function pro_plugins(): array {
+			return array(
+				'morkva-ua-shipping'                     => array( 'morkva UA Shipping', __( 'Nova Poshta, Ukrposhta and Rozetka Delivery shipping', 'ua-marketplace' ) ),
+				'woocommerce-checkbox-pro'               => array( 'morkva Checkbox', __( 'e-receipts with Checkbox', 'ua-marketplace' ) ),
+				'woocommerce-plata-by-mono-extended-pro' => array( 'morkva Plata by Mono Extended', __( 'Monobank card payments', 'ua-marketplace' ) ),
+				'woocommerce-liqpay-extended-pro'        => array( 'morkva LiqPay Extended', __( 'PrivatBank LiqPay card payments', 'ua-marketplace' ) ),
+				'woocommerce-westernbid'                 => array( 'morkva WesternBid', __( 'PayPal and Stripe payments through WesternBid', 'ua-marketplace' ) ),
+				'woocommerce-dilovod-integration'        => array( 'morkva Dilovod Integration', __( 'integration with Dilovod', 'ua-marketplace' ) ),
+				'keycrm-extended'                        => array( 'morkva KeyCRM', __( 'extended KeyCRM integration', 'ua-marketplace' ) ),
+				'buy-one-click-pro'                      => array( 'morkva Quick Order Button', __( 'one-click order button', 'ua-marketplace' ) ),
+				'product-video-pro'                      => array( 'morkva Product Video', __( 'videos in product galleries', 'ua-marketplace' ) ),
+				'review-reminder-pro'                    => array( 'morkva Product Review Reminder', __( 'reminds customers to review their purchases', 'ua-marketplace' ) ),
 			);
 		}
 
