@@ -121,6 +121,19 @@
 	align-items: center;
 }
 
+.mrkv-uamp-cron {
+	margin-top: 16px;
+}
+
+.mrkv-uamp-cron .mrkv-uamp-url {
+	max-width: 760px;
+}
+
+.mrkv-uamp-cron summary {
+	cursor: pointer;
+	font-weight: 600;
+}
+
 .mrkv-uamp-empty {
 	background: #fff;
 	border: 1px dashed #c3c4c7;

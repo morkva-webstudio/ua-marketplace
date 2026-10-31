@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-30T20:44:15+00:00\n"
+"POT-Creation-Date: 2026-10-31T06:20:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ua-marketplace\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: morkvawrs-plugin.php
-msgid "https://morkva.co.ua/shop-2/woocommerce-rozetka-sync"
+msgid "https://morkva.co.ua/shop/ua-marketplaces-pro/"
 msgstr ""
 
 #. Description of the plugin
@@ -40,7 +40,7 @@ msgid "https://morkva.co.ua"
 msgstr ""
 
 #: classes/admin/mrkv-uamp-admin.php:65
-#: classes/admin/mrkv-uamp-admin.php:284
+#: classes/admin/mrkv-uamp-admin.php:308
 msgid "Settings"
 msgstr ""
 
@@ -136,13 +136,13 @@ msgid "Each feed is an XML file the marketplace downloads on its own schedule. C
 msgstr ""
 
 #: classes/admin/mrkv-uamp-admin.php:229
-#: classes/admin/mrkv-uamp-admin.php:254
+#: classes/admin/mrkv-uamp-admin.php:255
 msgid "Marketplace"
 msgstr ""
 
 #: classes/admin/mrkv-uamp-admin.php:230
-#: classes/admin/mrkv-uamp-admin.php:434
-#: classes/admin/mrkv-uamp-admin.php:437
+#: classes/admin/mrkv-uamp-admin.php:458
+#: classes/admin/mrkv-uamp-admin.php:461
 msgid "Feed URL"
 msgstr ""
 
@@ -154,181 +154,202 @@ msgstr ""
 msgid "Build"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:243
+#: classes/admin/mrkv-uamp-admin.php:244
 msgid "No feeds yet. Add one for each marketplace you sell on."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:249
+#: classes/admin/mrkv-uamp-admin.php:250
 msgid "Add a feed"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:260
+#: classes/admin/mrkv-uamp-admin.php:261
 msgid "Add feed"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:279
+#: classes/admin/mrkv-uamp-admin.php:276
+msgid "Server cron"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:278
+msgid "WP-Cron is disabled on this site (DISABLE_WP_CRON). Feeds are updated only if a server cron calls wp-cron.php."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:280
+msgid "Feeds are built by WP-Cron, which runs only when someone opens the site. On a site with few visitors, add this line to the server cron (in the hosting panel or crontab) so feeds are updated on time:"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:282
+msgid "Server cron command"
+msgstr ""
+
+#. translators: %s: marketplace
+#: classes/admin/mrkv-uamp-admin.php:283
+#: classes/admin/mrkv-uamp-admin.php:316
+#: classes/admin/mrkv-uamp-admin.php:462
+msgid "Copy"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:285
+msgid "Every 5 minutes. If your hosting panel asks only for a URL, use the address in quotes."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-admin.php:303
 msgid "Paused"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:281
+#: classes/admin/mrkv-uamp-admin.php:305
 msgid "Active"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:285
+#: classes/admin/mrkv-uamp-admin.php:309
 msgid "Resume"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:285
+#: classes/admin/mrkv-uamp-admin.php:309
 msgid "Pause"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:286
+#: classes/admin/mrkv-uamp-admin.php:310
 msgid "Delete"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:291
+#: classes/admin/mrkv-uamp-admin.php:315
 #, php-format
 msgid "%s feed URL"
 msgstr ""
 
-#. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:292
-#: classes/admin/mrkv-uamp-admin.php:438
-msgid "Copy"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-admin.php:295
+#: classes/admin/mrkv-uamp-admin.php:319
 msgid "Open"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:297
+#: classes/admin/mrkv-uamp-admin.php:321
 msgid "The file appears after the first build."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:305
+#: classes/admin/mrkv-uamp-admin.php:329
 msgid "Not updated while paused"
 msgstr ""
 
 #. translators: 1: next update time, 2: schedule such as "Once a day"
-#: classes/admin/mrkv-uamp-admin.php:308
+#: classes/admin/mrkv-uamp-admin.php:332
 #, php-format
 msgid "Next: %1$s (%2$s)"
 msgstr ""
 
 #. translators: 1: next update time, 2: schedule such as "Once a day"
-#: classes/admin/mrkv-uamp-admin.php:308
+#: classes/admin/mrkv-uamp-admin.php:332
 msgid "scheduling…"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:321
+#: classes/admin/mrkv-uamp-admin.php:345
 msgid "Restart build"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:321
+#: classes/admin/mrkv-uamp-admin.php:345
 msgid "Build now"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:347
+#: classes/admin/mrkv-uamp-admin.php:371
 #, php-format
 msgid "Delete the %s feed?"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:348
+#: classes/admin/mrkv-uamp-admin.php:372
 msgid "The feed stops updating. If the marketplace still downloads this URL, keep the file so your products are not taken off the marketplace until you remove the price list there."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:350
+#: classes/admin/mrkv-uamp-admin.php:374
 msgid "Settings and category mapping are kept: adding the feed again restores them."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:356
+#: classes/admin/mrkv-uamp-admin.php:380
 msgid "Also delete the XML file"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:358
+#: classes/admin/mrkv-uamp-admin.php:382
 msgid "Delete feed"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:359
+#: classes/admin/mrkv-uamp-admin.php:383
 msgid "Cancel"
 msgstr ""
 
 #. translators: 1: products done, 2: products total
-#: classes/admin/mrkv-uamp-admin.php:368
+#: classes/admin/mrkv-uamp-admin.php:392
 #, php-format
 msgid "Building: %1$d of %2$d products"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:376
+#: classes/admin/mrkv-uamp-admin.php:400
 msgid "Not built yet"
 msgstr ""
 
 #. translators: 1: date and time, 2: number of offers
-#: classes/admin/mrkv-uamp-admin.php:380
+#: classes/admin/mrkv-uamp-admin.php:404
 #, php-format
 msgid "%1$s · %2$d offer"
 msgid_plural "%1$s · %2$d offers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/admin/mrkv-uamp-admin.php:388
+#: classes/admin/mrkv-uamp-admin.php:412
 msgid "Every hour"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:389
+#: classes/admin/mrkv-uamp-admin.php:413
 msgid "Every 4 hours"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:390
+#: classes/admin/mrkv-uamp-admin.php:414
 msgid "Twice a day"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:391
+#: classes/admin/mrkv-uamp-admin.php:415
 msgid "Once a day"
 msgstr ""
 
 #. translators: %s: marketplace
-#: classes/admin/mrkv-uamp-admin.php:421
+#: classes/admin/mrkv-uamp-admin.php:445
 #, php-format
 msgid "Save %s settings"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:431
+#: classes/admin/mrkv-uamp-admin.php:455
 msgid "Feed file and updates"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:443
+#: classes/admin/mrkv-uamp-admin.php:467
 msgid "Folder and file name"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:446
+#: classes/admin/mrkv-uamp-admin.php:470
 msgid "Folder"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:453
+#: classes/admin/mrkv-uamp-admin.php:477
 msgid "Update"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:461
+#: classes/admin/mrkv-uamp-admin.php:485
 msgid "The free version rebuilds every feed once a day. Rozetka downloads price lists every hour."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:466
+#: classes/admin/mrkv-uamp-admin.php:490
 msgid "Products per query"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:469
+#: classes/admin/mrkv-uamp-admin.php:493
 msgid "The feed is built in short background steps of about 20 seconds, so the server time limit never matters. Lower this only if builds stop with memory errors."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:480
+#: classes/admin/mrkv-uamp-admin.php:504
 msgid "You are not allowed to manage marketplace feeds."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-admin.php:491
+#: classes/admin/mrkv-uamp-admin.php:515
 msgid "This action needs a form submission."
 msgstr ""
 
@@ -523,137 +544,137 @@ msgid "Products and prices"
 msgstr ""
 
 #: classes/admin/mrkv-uamp-settings.php:112
-msgid "Name and description tags"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:117
-msgid "Choose <name_ua> when your product texts are in Ukrainian; Rozetka translates the other language automatically."
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:122
-#: classes/admin/mrkv-uamp-settings.php:137
-msgid "Sale price"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:123
-msgid "Send the sale price as <price> and the regular price as <price_old>"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:129
-msgid "Promo price"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:130
-msgid "Send <price_promo> from the product's \"Rozetka promo price\" field"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:138
-msgid "A product on sale is sent with the sale price as <price> and the regular price as <oldprice>."
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:145
-msgid "Price formula"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:146
-msgid "Change every price in the feed"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:153
-msgid "Formula"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:155
-msgid "One operation on the price: *1.15, +50 or -20."
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:163
-msgid "Rounding"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:165
-msgid "Do not round"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:166
-msgid "One decimal place"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:167
-msgid "Two decimal places"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:168
-msgid "Whole number"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:178
-msgid "Code in the name"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:179
-msgid "Add the SKU or the product ID to the name in brackets"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:186
-msgid "Code"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:188
-msgid "SKU"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:189
-msgid "Product or variation ID"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:198
-msgid "Variation photos"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:199
-msgid "Use the variation's own photos instead of the product photos"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:206
-msgid "Variation gallery"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:208
-msgid "Only the variation image"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:209
-msgid "Additional Variation Images Gallery (Woo Variation Gallery)"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:210
-msgid "Variation Images Gallery for WooCommerce"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:211
-msgid "Woodmart theme"
-msgstr ""
-
-#: classes/admin/mrkv-uamp-settings.php:220
 msgid "Description template"
 msgstr ""
 
 #. translators: %s: list of shortcodes
-#: classes/admin/mrkv-uamp-settings.php:223
+#: classes/admin/mrkv-uamp-settings.php:115
 #, php-format
 msgid "Build the feed description from parts of the product: %s. Empty: the product description. A product's own marketplace description always wins."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-settings.php:232
+#: classes/admin/mrkv-uamp-settings.php:124
+msgid "Name and description tags"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:129
+msgid "Choose <name_ua> when your product texts are in Ukrainian; Rozetka translates the other language automatically."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:135
+#: classes/admin/mrkv-uamp-settings.php:151
+msgid "Sale price"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:136
+msgid "Send the sale price as <price> and the regular price as <price_old>"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:142
+msgid "Promo price"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:143
+msgid "Send <price_promo> from the product's \"Rozetka promo price\" field"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:152
+msgid "A product on sale is sent with the sale price as <price> and the regular price as <oldprice>."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:159
+msgid "Price formula"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:160
+msgid "Change every price in the feed"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:167
+msgid "Formula"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:169
+msgid "One operation on the price: *1.15, +50 or -20."
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:177
+msgid "Rounding"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:179
+msgid "Do not round"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:180
+msgid "One decimal place"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:181
+msgid "Two decimal places"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:182
+msgid "Whole number"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:192
+msgid "Code in the name"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:193
+msgid "Add the SKU or the product ID to the name in brackets"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:200
+msgid "Code"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:202
+msgid "SKU"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:203
+msgid "Product or variation ID"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:212
+msgid "Variation photos"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:213
+msgid "Use the variation's own photos instead of the product photos"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:220
+msgid "Variation gallery"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:222
+msgid "Only the variation image"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:223
+msgid "Additional Variation Images Gallery (Woo Variation Gallery)"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:224
+msgid "Variation Images Gallery for WooCommerce"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:225
+msgid "Woodmart theme"
+msgstr ""
+
+#: classes/admin/mrkv-uamp-settings.php:234
 msgid "Two languages"
 msgstr ""
 
-#: classes/admin/mrkv-uamp-settings.php:233
+#: classes/admin/mrkv-uamp-settings.php:235
 msgid "With Polylang or WPML, <name_ua> and <description_ua> come from the Ukrainian translation, the other language goes to <name> and <description>."
 msgstr ""
 
-#: classes/admin/mrkv-uamp-settings.php:242
+#: classes/admin/mrkv-uamp-settings.php:244
 msgid "— Choose an attribute —"
 msgstr ""
 

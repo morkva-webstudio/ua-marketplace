@@ -104,7 +104,19 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 		 * carry over; in Free they are shown locked as a preview.
 		 */
 		private static function product_fields( string $slug ): array {
-			$fields = array();
+			$fields      = array();
+			$prefix      = 'rozetka' === $slug ? 'mrkv_rozetka' : 'mrkv_promua';
+			$description = array(
+				'key'         => 'product_description',
+				'type'        => 'textarea',
+				'label'       => __( 'Description template', 'ua-marketplace' ),
+				'description' => sprintf(
+					/* translators: %s: list of shortcodes */
+					__( 'Build the feed description from parts of the product: %s. Empty: the product description. A product\'s own marketplace description always wins.', 'ua-marketplace' ),
+					'[' . $prefix . '_description] [' . $prefix . '_short_description] [' . $prefix . '_variation_description]'
+				),
+				'pro'         => true,
+			);
 			if ( 'rozetka' === $slug ) {
 				$fields[] = array(
 					'key'         => 'xml_tags_lang',
@@ -116,6 +128,7 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 					),
 					'description' => __( 'Choose <name_ua> when your product texts are in Ukrainian; Rozetka translates the other language automatically.', 'ua-marketplace' ),
 				);
+				$fields[] = $description;
 				$fields[] = array(
 					'key'   => 'add_sales_price_chk',
 					'type'  => 'checkbox',
@@ -131,6 +144,7 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 					'pro'   => true,
 				);
 			} else {
+				$fields[] = $description;
 				$fields[] = array(
 					'key'   => 'sale_price_note',
 					'type'  => 'note',
@@ -212,18 +226,6 @@ if ( ! class_exists( 'MRKV_UAMP_SETTINGS' ) ) {
 				),
 				'pro'       => true,
 				'row_attrs' => array( 'data-mrkv-uamp-show' => 'gallery:1' ),
-			);
-			$prefix   = 'rozetka' === $slug ? 'mrkv_rozetka' : 'mrkv_promua';
-			$fields[] = array(
-				'key'         => 'product_description',
-				'type'        => 'textarea',
-				'label'       => __( 'Description template', 'ua-marketplace' ),
-				'description' => sprintf(
-					/* translators: %s: list of shortcodes */
-					__( 'Build the feed description from parts of the product: %s. Empty: the product description. A product\'s own marketplace description always wins.', 'ua-marketplace' ),
-					'[' . $prefix . '_description] [' . $prefix . '_short_description] [' . $prefix . '_variation_description]'
-				),
-				'pro'         => true,
 			);
 			if ( 'promua' === $slug ) {
 				$fields[] = array(

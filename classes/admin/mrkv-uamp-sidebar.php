@@ -10,7 +10,7 @@ if ( ! class_exists( 'MRKV_UAMP_SIDEBAR' ) ) {
 	 */
 	class MRKV_UAMP_SIDEBAR {
 		const WPORG_URL = 'https://wordpress.org/plugins/ua-marketplace/';
-		const PRO_URL   = 'https://morkva.co.ua/shop-2/woocommerce-rozetka-sync';
+		const PRO_URL   = 'https://morkva.co.ua/shop/ua-marketplaces-pro/';
 		const SITE_URL  = 'https://morkva.co.ua/';
 		const DOCS_URL  = 'https://docs.morkva.co.ua/uk';
 

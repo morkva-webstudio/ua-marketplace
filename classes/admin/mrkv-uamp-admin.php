@@ -239,6 +239,7 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 					</tbody>
 				</table>
 				<?php
+				$this->render_server_cron();
 			} else {
 				echo '<div class="mrkv-uamp-empty"><p>' . esc_html__( 'No feeds yet. Add one for each marketplace you sell on.', 'ua-marketplace' ) . '</p></div>';
 			}
@@ -261,6 +262,29 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 				</form>
 				<?php
 			}
+		}
+
+		/**
+		 * The crontab line for wp-cron.php. WP-Cron runs only on visits, so on a quiet site, or with
+		 * DISABLE_WP_CRON, Action Scheduler (and the builds) wait until a server cron calls it.
+		 */
+		private function render_server_cron(): void {
+			$disabled = defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON;
+			$command  = '*/5 * * * * wget -q -O - "' . site_url( 'wp-cron.php?doing_wp_cron' ) . '" >/dev/null 2>&1';
+			?>
+			<details class="mrkv-uamp-cron"<?php echo $disabled ? ' open' : ''; ?>>
+				<summary><?php esc_html_e( 'Server cron', 'ua-marketplace' ); ?></summary>
+				<?php if ( $disabled ) : ?>
+					<p class="mrkv-uamp-error"><?php esc_html_e( 'WP-Cron is disabled on this site (DISABLE_WP_CRON). Feeds are updated only if a server cron calls wp-cron.php.', 'ua-marketplace' ); ?></p>
+				<?php endif; ?>
+				<p><?php esc_html_e( 'Feeds are built by WP-Cron, which runs only when someone opens the site. On a site with few visitors, add this line to the server cron (in the hosting panel or crontab) so feeds are updated on time:', 'ua-marketplace' ); ?></p>
+				<div class="mrkv-uamp-url">
+					<input type="text" readonly class="large-text code" value="<?php echo esc_attr( $command ); ?>" aria-label="<?php esc_attr_e( 'Server cron command', 'ua-marketplace' ); ?>">
+					<button type="button" class="button mrkv-uamp-copy" data-mrkv-uamp-copy="<?php echo esc_attr( $command ); ?>"><?php esc_html_e( 'Copy', 'ua-marketplace' ); ?></button>
+				</div>
+				<p class="description"><?php esc_html_e( 'Every 5 minutes. If your hosting panel asks only for a URL, use the address in quotes.', 'ua-marketplace' ); ?></p>
+			</details>
+			<?php
 		}
 
 		private function render_feed_row( string $slug, array $feed ): void {
