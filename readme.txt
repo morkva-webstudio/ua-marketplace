@@ -16,11 +16,11 @@ Sell your WooCommerce products on Rozetka and Prom.ua. The plugin builds an XML 
 
 = 👉 Why shops choose UA Marketplaces =
 
-* **Works on any hosting.** Feeds are built in the background in steps of about 20 seconds, so large catalogs never hit the server time limit. No need to raise `max_execution_time`. Runs with WP-Cron, a server cron or WP-CLI.
+* **Works on any hosting.** Feeds are built in the background in steps of about 20 seconds, so large catalogs never hit the server time limit. No need to raise `max_execution_time`. Runs with WP-Cron, a server cron (the Feeds tab gives you the line to copy) or WP-CLI.
 * **The feed never breaks.** A new file replaces the old one only when it is complete and valid. If a build fails, the marketplace keeps getting yesterday's feed, not an empty one.
 * **Follows the marketplace rules.** No empty parameters, unique names for variations, picture limits (15 for Rozetka, 10 for Prom), dimensions and weight for Prom.
 * **Rozetka categories by name.** Search the Rozetka category directory with full paths; the directory updates itself.
-* **Native WordPress settings.** Everything for one marketplace on one tab, a feeds list with build progress, pause and delete.
+* **Native WordPress settings.** Everything for one marketplace on one tab, a feeds list with pause and delete. Click "Build now" and watch the progress bar: while the page is open, the feed is built right away, batch by batch.
 * **Painless upgrade from 1.x.** Feed URLs and settings move over automatically; nothing changes in the marketplace cabinets.
 * **Up to date.** HPOS compatible, PHP 7.4 to 8.5, WooCommerce 8 to 11.
 
@@ -87,7 +87,11 @@ No. Feed URLs, category mapping and settings move over automatically, and the fe
 
 = The feed is not built, or I see a timeout or memory error =
 
-Version 2.0 builds feeds in short background steps with the WooCommerce Action Scheduler. If WP-Cron is disabled on your site, set up a server cron for `wp-cron.php`, or run `wp mrkv-uamp build all` with WP-CLI. Errors are listed in WooCommerce → Status → Logs.
+Version 2.0 builds feeds in short background steps with the WooCommerce Action Scheduler. If WP-Cron is disabled on your site, add the line from the "Server cron" block on the Feeds tab to your server cron, or run `wp mrkv-uamp build all` with WP-CLI. Errors are listed in WooCommerce → Status → Logs.
+
+= The feed is updated later than scheduled =
+
+WP-Cron runs only when someone opens the site, so on a site with few visitors scheduled builds wait for the next visit. Open the "Server cron" block on the Feeds tab, copy the line and add it to the cron in your hosting panel: it calls WordPress every 5 minutes.
 
 = Why is a product missing from the Rozetka feed? =
 
@@ -118,7 +122,8 @@ With Polylang the Prom.ua feed is built in the site language. Two languages (`na
 = 2.0.0 =
 * Rewritten from scratch. Feeds are built in the background in short steps, so large catalogs no longer hit server time limits.
 * The live feed is replaced only by a complete, valid file: marketplaces never see a broken or empty feed.
-* New settings page under WooCommerce: one tab per marketplace, a feeds list with build progress, pause and delete.
+* New settings page WooCommerce → UA Marketplaces feeds: one tab per marketplace, a feeds list with pause and delete.
+* "Build now" shows live progress and finishes the feed while the page is open; the Feeds tab also gives you a ready server cron line.
 * Rozetka category search by name with full paths; the category directory updates itself.
 * Feeds follow the current Rozetka and Prom.ua requirements: no empty parameters, unique variation names, picture limits, Prom dimensions.
 * Leave a product out of Rozetka and Prom.ua separately.
