@@ -65,3 +65,4 @@ foreach ( array( 'mrkv_uamrkpl_', 'mrkv_uamp_' ) as $mrkv_uamp_prefix ) {
 }
 delete_option( 'mrkv_ua_marketplaces' );
 delete_transient( 'mrkv_uamp_schedule_ok' );
+delete_transient( 'mrkv_uamp_rozetka_cats_error' );

@@ -60,8 +60,9 @@ if ( ! class_exists( 'MRKV_UAMP_ROZETKA_DIRECTORY' ) ) {
 		}
 
 		/**
-		 * Picker search: by id when the term is a number, otherwise by name. Deeper categories
-		 * (longer path) come first: those are the ones products are mapped to.
+		 * Picker search: by id when the term is a number, otherwise by name or path. Best name
+		 * matches first (exact, starts with, contains), then the shorter path: the general
+		 * "Товари для дому › Посуд › Чашки" before the same name under a retail chain's branch.
 		 *
 		 * @return array[] array( 'id' => int, 'name' => string, 'path' => string )
 		 */
@@ -74,8 +75,9 @@ if ( ! class_exists( 'MRKV_UAMP_ROZETKA_DIRECTORY' ) ) {
 			if ( ctype_digit( $term ) ) {
 				$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT rz_id, name, path FROM %i WHERE rz_id = %d', self::table(), (int) $term ), ARRAY_A );
 			} else {
-				$like = '%' . $wpdb->esc_like( $term ) . '%';
-				$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT rz_id, name, path FROM %i WHERE name LIKE %s OR path LIKE %s ORDER BY (name LIKE %s) DESC, CHAR_LENGTH(path) DESC LIMIT %d', self::table(), $like, $like, $like, $limit ), ARRAY_A );
+				$like   = '%' . $wpdb->esc_like( $term ) . '%';
+				$prefix = $wpdb->esc_like( $term ) . '%';
+				$rows   = $wpdb->get_results( $wpdb->prepare( 'SELECT rz_id, name, path FROM %i WHERE name LIKE %s OR path LIKE %s ORDER BY (name = %s) DESC, (name LIKE %s) DESC, (name LIKE %s) DESC, CHAR_LENGTH(path) ASC LIMIT %d', self::table(), $like, $like, $term, $prefix, $like, $limit ), ARRAY_A );
 			}
 			$out = array();
 			foreach ( (array) $rows as $row ) {
@@ -111,6 +113,39 @@ if ( ! class_exists( 'MRKV_UAMP_ROZETKA_DIRECTORY' ) ) {
 			return array_map( function ( $row ) {
 				return (string) $row['name'];
 			}, self::rows( $ids ) );
+		}
+
+		/**
+		 * Replaces the whole directory in one transaction: the picker and running builds see either
+		 * the old rows or the new ones (InnoDB), never a half-filled table.
+		 *
+		 * @param array<int, array> $rows rz_id => array( 'parent_id' => int, 'name' => string, 'path' => string )
+		 */
+		public static function replace( array $rows, int $chunk = 500 ): bool {
+			global $wpdb;
+			if ( ! self::ready() ) {
+				return false;
+			}
+			// DELETE, not TRUNCATE: TRUNCATE commits on its own and would empty the table for readers.
+			$wpdb->query( 'START TRANSACTION' );
+			$ok = false !== $wpdb->query( $wpdb->prepare( 'DELETE FROM %i', self::table() ) );
+			foreach ( array_chunk( $rows, $chunk, true ) as $part ) {
+				if ( ! $ok ) {
+					break;
+				}
+				$values = array( self::table() );
+				foreach ( $part as $rz_id => $row ) {
+					array_push( $values, (int) $rz_id, (int) $row['parent_id'], (string) $row['name'], (string) $row['path'] );
+				}
+				$placeholders = implode( ',', array_fill( 0, count( $part ), '(%d,%d,%s,%s)' ) );
+				$ok           = false !== $wpdb->query( $wpdb->prepare( "INSERT INTO %i (rz_id, parent_id, name, path) VALUES {$placeholders}", $values ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- placeholders only
+			}
+			if ( $ok ) {
+				$wpdb->query( 'COMMIT' );
+			} else {
+				$wpdb->query( 'ROLLBACK' );
+			}
+			return $ok;
 		}
 
 		/** @return array<int, array> rz_id => row */

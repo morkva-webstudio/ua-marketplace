@@ -8,6 +8,7 @@ foreach ( array(
 	'core/mrkv-uamp-lock.php',
 	'core/mrkv-uamp-log.php',
 	'rozetka/mrkv-uamp-rozetka-directory.php',
+	'rozetka/mrkv-uamp-rozetka-importer.php',
 	'feeds/mrkv-uamp-mapper.php',
 	'feeds/mrkv-uamp-rozetka-mapper.php',
 	'feeds/mrkv-uamp-prom-mapper.php',
@@ -34,6 +35,7 @@ if ( ! class_exists( 'MRKV_UAMP_RUN' ) ) {
 
 		private function __construct() {
 			( new MRKV_UAMP_SCHEDULER() )->register();
+			( new MRKV_UAMP_ROZETKA_IMPORTER() )->register();
 
 			// Not on action_scheduler_init: that fires before WooCommerce registers product_cat /
 			// product_type (init 5), and the feed queries would find nothing.

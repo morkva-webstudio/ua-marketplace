@@ -34,14 +34,7 @@ if ( ! class_exists( 'MRKV_UAMP_MAPPING_UI' ) ) {
 					?>
 				</strong>
 				·
-				<?php
-				if ( $count ) {
-					/* translators: %d: number of Rozetka categories */
-					echo esc_html( sprintf( _n( 'Rozetka directory: %d category', 'Rozetka directory: %d categories', $count, 'ua-marketplace' ), $count ) );
-				} else {
-					esc_html_e( 'The Rozetka category directory is not loaded yet: type a Rozetka category ID in the picker.', 'ua-marketplace' );
-				}
-				?>
+				<?php self::directory_status( $count ); ?>
 			</p>
 			<?php if ( ! $terms ) : ?>
 				<p class="description"><?php esc_html_e( 'Your shop has no product categories yet.', 'ua-marketplace' ); ?></p>
@@ -83,6 +76,30 @@ if ( ! class_exists( 'MRKV_UAMP_MAPPING_UI' ) ) {
 				</tbody>
 			</table>
 			<?php
+		}
+
+		/** "Rozetka directory: N categories, updated …" or why it is empty, with a Refresh link. */
+		private static function directory_status( int $count ): void {
+			$meta  = MRKV_UAMP_ROZETKA_IMPORTER::meta();
+			$error = MRKV_UAMP_ROZETKA_IMPORTER::last_error();
+			if ( $count ) {
+				echo esc_html( sprintf(
+					/* translators: 1: number of Rozetka categories, 2: date */
+					_n( 'Rozetka directory: %1$d category, updated %2$s', 'Rozetka directory: %1$d categories, updated %2$s', $count, 'ua-marketplace' ),
+					$count,
+					$meta['fetched_at'] ? wp_date( get_option( 'date_format' ), $meta['fetched_at'] ) : '—'
+				) );
+			} elseif ( '' === $error ) {
+				esc_html_e( 'The Rozetka category directory is loading in the background. Until then, type a Rozetka category ID in the picker.', 'ua-marketplace' );
+			}
+			echo ' <a href="' . esc_url( MRKV_UAMP_ADMIN::directory_refresh_url() ) . '" class="mrkv-uamp-dir-refresh">' . esc_html__( 'Refresh', 'ua-marketplace' ) . '</a>';
+			if ( '' !== $error ) {
+				echo '<br><span class="mrkv-uamp-error">' . esc_html( sprintf(
+					/* translators: %s: reason */
+					__( 'Could not update the Rozetka category directory: %s. Type a Rozetka category ID in the picker meanwhile.', 'ua-marketplace' ),
+					$error
+				) ) . '</span>';
+			}
 		}
 
 		/** All product categories, depth-first, parents before children: term_id => array( term, depth ). */
