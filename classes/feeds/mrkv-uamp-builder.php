@@ -189,7 +189,7 @@ if ( ! class_exists( 'MRKV_UAMP_BUILDER' ) ) {
 
 			$offers = self::count_offers( $part );
 			if ( null === $offers ) {
-				self::fail( $slug, $state, __( 'The new feed is not valid XML, so the previous file was kept. See WooCommerce → Status → Logs (ua-marketplace).', 'ua-marketplace' ) );
+				self::fail( $slug, $state, /* translators: %s: log source name */ sprintf( __( 'The new feed is not valid XML, so the previous file was kept. See WooCommerce → Status → Logs (%s).', 'ua-marketplace' ), MRKV_UAMP_LOG::SOURCE ) );
 				return false;
 			}
 			// An empty build replacing a feed that had offers is almost always a lost mapping or a
