@@ -117,6 +117,13 @@ Choose where the brand comes from on the Rozetka tab, or enter one brand for all
 
 With Polylang the Prom.ua feed is built in the site language. Two languages (`name_ua` and `description_ua`) are in Pro.
 
+== Screenshots ==
+
+1. Feeds page
+2. Rozetka XML feed settings
+3. Prom.ua XML feed settings
+4. Product-level settings
+
 == Changelog ==
 
 = 2.0.0 =
