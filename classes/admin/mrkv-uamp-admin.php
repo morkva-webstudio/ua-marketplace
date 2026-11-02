@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 	/**
-	 * WooCommerce → UA Marketplace: the feed list (index) and one tab per marketplace with all of its
+	 * WooCommerce → UA Marketplaces feeds: the feed list (index) and one tab per marketplace with all of its
 	 * settings in a single form. Plain WordPress admin markup (nav-tab-wrapper, widefat, form-table)
 	 * with the morkva sidebar, as in the other free morkva plugins.
 	 *
@@ -15,6 +15,9 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 	class MRKV_UAMP_ADMIN {
 		const PAGE = 'mrkv-ua-marketplaces';
 		const CAP  = 'manage_woocommerce';
+
+		/** Seconds one progress request may spend building, per feed. */
+		const PAGE_BATCH_BUDGET = 10.0;
 
 		/** 1.x menu slugs, redirected so old bookmarks and links in docs still land somewhere. */
 		const LEGACY_PAGES = array(
@@ -36,6 +39,13 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 			add_action( 'wp_ajax_mrkv_uamp_feed_status', array( $this, 'ajax_feed_status' ) );
 			add_action( 'wp_ajax_mrkv_uamp_rozetka_search', array( $this, 'ajax_rozetka_search' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( MRKV_UAMP_FILE ), array( $this, 'action_links' ) );
+			// WordPress drops these from the address bar, so a reload does not repeat the notice.
+			add_filter( 'removable_query_args', array( $this, 'removable_query_args' ) );
+		}
+
+		public function removable_query_args( array $args ): array {
+			$args[] = 'mrkv_uamp_notice';
+			return $args;
 		}
 
 		public static function url( string $tab = 'feeds', array $args = array() ): string {
@@ -43,11 +53,12 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 		}
 
 		public static function title(): string {
-			return MRKV_UAMP_IS_PRO ? 'UA Marketplaces Pro' : 'UA Marketplace';
+			return MRKV_UAMP_IS_PRO ? 'UA Marketplaces Pro' : 'UA Marketplaces';
 		}
 
 		public function menu(): void {
-			add_submenu_page( 'woocommerce', self::title(), self::title(), self::CAP, self::PAGE, array( $this, 'render' ) );
+			// "feeds": later versions add order import pages next to this one.
+			add_submenu_page( 'woocommerce', self::title(), 'UA Marketplaces feeds', self::CAP, self::PAGE, array( $this, 'render' ) );
 		}
 
 		public function action_links( array $links ): array {
@@ -126,7 +137,13 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 			}
 			?>
 			<div class="wrap mrkv-uamp-wrap">
-				<h1><?php echo esc_html( self::title() ); ?></h1>
+				<div class="mrkv-uamp-header">
+					<h1><?php echo esc_html( self::title() ); ?></h1>
+					<a class="mrkv-uamp-logo" href="<?php echo esc_url( MRKV_UAMP_SIDEBAR::SITE_URL ); ?>" target="_blank" rel="noopener">
+						<img src="<?php echo esc_url( MRKV_UAMP_URL . 'assets/images/morkva-logo.svg' ); ?>" alt="morkva" width="121" height="24">
+					</a>
+				</div>
+				<hr class="wp-header-end">
 				<nav class="nav-tab-wrapper">
 					<?php foreach ( $tabs as $id => $label ) : ?>
 						<a href="<?php echo esc_url( self::url( $id ) ); ?>" class="nav-tab<?php echo $id === $tab ? ' nav-tab-active' : ''; ?>"><?php echo esc_html( $label ); ?></a>
@@ -185,7 +202,7 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 			echo '<div class="notice notice-success is-dismissible"><p>'
 				. esc_html( sprintf(
 					/* translators: %s: list of marketplaces */
-					__( 'UA Marketplace 2.0: your feeds (%s) were moved to the new settings. Feed URLs did not change, so nothing needs updating in the marketplace cabinets. The feeds are being rebuilt in the background.', 'ua-marketplace' ),
+					__( 'UA Marketplaces 2.0: your feeds (%s) were moved to the new settings. Feed URLs did not change, so nothing needs updating in the marketplace cabinets. The feeds are being rebuilt in the background.', 'ua-marketplace' ),
 					implode( ', ', $labels )
 				) )
 				. ' <a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Open the feeds', 'ua-marketplace' ) . '</a></p></div>';
@@ -222,6 +239,7 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 					</tbody>
 				</table>
 				<?php
+				$this->render_server_cron();
 			} else {
 				echo '<div class="mrkv-uamp-empty"><p>' . esc_html__( 'No feeds yet. Add one for each marketplace you sell on.', 'ua-marketplace' ) . '</p></div>';
 			}
@@ -244,6 +262,29 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 				</form>
 				<?php
 			}
+		}
+
+		/**
+		 * The crontab line for wp-cron.php. WP-Cron runs only on visits, so on a quiet site, or with
+		 * DISABLE_WP_CRON, Action Scheduler (and the builds) wait until a server cron calls it.
+		 */
+		private function render_server_cron(): void {
+			$disabled = defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON;
+			$command  = '*/5 * * * * wget -q -O - "' . site_url( 'wp-cron.php?doing_wp_cron' ) . '" >/dev/null 2>&1';
+			?>
+			<details class="mrkv-uamp-cron"<?php echo $disabled ? ' open' : ''; ?>>
+				<summary><?php esc_html_e( 'Server cron', 'ua-marketplace' ); ?></summary>
+				<?php if ( $disabled ) : ?>
+					<p class="mrkv-uamp-error"><?php esc_html_e( 'WP-Cron is disabled on this site (DISABLE_WP_CRON). Feeds are updated only if a server cron calls wp-cron.php.', 'ua-marketplace' ); ?></p>
+				<?php endif; ?>
+				<p><?php esc_html_e( 'Feeds are built by WP-Cron, which runs only when someone opens the site. On a site with few visitors, add this line to the server cron (in the hosting panel or crontab) so feeds are updated on time:', 'ua-marketplace' ); ?></p>
+				<div class="mrkv-uamp-url">
+					<input type="text" readonly class="large-text code" value="<?php echo esc_attr( $command ); ?>" aria-label="<?php esc_attr_e( 'Server cron command', 'ua-marketplace' ); ?>">
+					<button type="button" class="button mrkv-uamp-copy" data-mrkv-uamp-copy="<?php echo esc_attr( $command ); ?>"><?php esc_html_e( 'Copy', 'ua-marketplace' ); ?></button>
+				</div>
+				<p class="description"><?php esc_html_e( 'Every 5 minutes. If your hosting panel asks only for a URL, use the address in quotes.', 'ua-marketplace' ); ?></p>
+			</details>
+			<?php
 		}
 
 		private function render_feed_row( string $slug, array $feed ): void {
@@ -573,7 +614,11 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 			return wp_nonce_url( add_query_arg( 'action', 'mrkv_uamp_rozetka_directory', admin_url( 'admin-post.php' ) ), 'mrkv_uamp_rozetka_directory' );
 		}
 
-		/** Live progress for the Feeds table. */
+		/**
+		 * Live progress for the Feeds table. While the page is open, each call also builds the next
+		 * `step` products of every running feed, so the bar moves batch by batch; when the page is
+		 * closed, Action Scheduler carries on. A feed held by an Action Scheduler batch is skipped.
+		 */
 		public function ajax_feed_status(): void {
 			check_ajax_referer( 'mrkv_uamp_admin' );
 			if ( ! current_user_can( self::CAP ) ) {
@@ -581,6 +626,9 @@ if ( ! class_exists( 'MRKV_UAMP_ADMIN' ) ) {
 			}
 			$out = array();
 			foreach ( MRKV_UAMP_FEEDS::all() as $slug => $feed ) {
+				if ( '' !== MRKV_UAMP_FEEDS::get_state( $slug )['run_id'] ) {
+					MRKV_UAMP_BUILDER::batch( $slug, self::PAGE_BATCH_BUDGET, 1 );
+				}
 				$state        = MRKV_UAMP_FEEDS::get_state( $slug );
 				$out[ $slug ] = array(
 					'running'  => '' !== $state['run_id'],

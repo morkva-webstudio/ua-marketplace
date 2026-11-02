@@ -1,235 +1,190 @@
-﻿=== Ua Marketplace ===
+﻿=== UA Marketplaces – Rozetka & Prom.ua XML Feeds for WooCommerce ===
 Contributors: bandido, olegkovalyov
-Tags: woocommerce, розетка, rozetka, ecommerce, xml
-Requires at least: 5.0
+Tags: rozetka, prom
+Requires at least: 6.5
 Tested up to: 7.1
-Requires PHP: 7.0
-Stable tag: 1.4.20
-License: GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP: 7.4
+Stable tag: 2.0.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-
-
-Синхронізуйтесь з українськими маркетплейсами швидко та зручно.
+Rozetka and Prom.ua XML feeds from your WooCommerce catalog: category mapping, variations, brands. Built in the background, the URL never changes.
 
 == Description ==
 
-Написали "з нуля", враховуючи досвід 30-ти магазинів, що уже використовують наш плагін Woo Rozetka Sync.
+Sell your WooCommerce products on Rozetka and Prom.ua. The plugin builds an XML feed for each marketplace, and the marketplace downloads it on its own schedule. You paste the feed URL into the marketplace cabinet once.
 
-Швидкість генерації xml зросла втричі, в порівнянні зі старим кодом.
+= 👉 Why shops choose UA Marketplaces =
 
-Підтримуються монобрендові та мультибрендові магазини.
+* **Works on any hosting.** Feeds are built in the background in steps of about 20 seconds, so large catalogs never hit the server time limit. No need to raise `max_execution_time`. Runs with WP-Cron, a server cron (the Feeds tab gives you the line to copy) or WP-CLI.
+* **The feed never breaks.** A new file replaces the old one only when it is complete and valid. If a build fails, the marketplace keeps getting yesterday's feed, not an empty one.
+* **Follows the marketplace rules.** No empty parameters, unique names for variations, picture limits (15 for Rozetka, 10 for Prom), dimensions and weight for Prom.
+* **Rozetka categories by name.** Search the Rozetka category directory with full paths; the directory updates itself.
+* **Native WordPress settings.** Everything for one marketplace on one tab, a feeds list with pause and delete. Click "Build now" and watch the progress bar: while the page is open, the feed is built right away, batch by batch.
+* **Painless upgrade from 1.x.** Feed URLs and settings move over automatically; nothing changes in the marketplace cabinets.
+* **Up to date.** HPOS compatible, PHP 7.4 to 8.5, WooCommerce 8 to 11.
 
-Автоматична ре-генерація xml двічі на добу (wp-cron).
+= 📦 What goes into the feed =
 
-Підтримує маркетплейси Rozetka та Prom (скоро).
+* Simple and variable products: every variation is its own offer, grouped under the product, with its own picture.
+* Main picture and gallery, description, attributes as parameters, stock, availability, SKU.
+* Brand from WooCommerce Brands, Perfect Brands for WooCommerce, a product attribute, a custom field, or one brand for the whole shop.
+* Rozetka: products from the categories you mapped (and their subcategories); `name_ua` / `description_ua` tags if your texts are in Ukrainian.
+* Prom.ua: every category with products, dimensions and weight, several attribute values joined with "|", one language with Polylang.
 
-Pro-версія:
+= 🛒 On the product =
 
-https://morkva.co.ua/shop-2/ua-marketplaces-woocommerce-plugin
+* Leave a product out of Rozetka or out of Prom separately.
+* Its own name for each marketplace, also in Quick Edit.
+* Its own picture and description for Rozetka, and a picture for each variation.
 
+= ⭐ Free or Pro =
 
-== Інструкція ==
+The free plugin gives you both marketplaces with a daily update and the regular price.
 
-https://youtu.be/CYhov5nuET4
+[UA Marketplaces Pro](https://morkva.co.ua/shop/ua-marketplaces-pro/) adds:
 
+* updates every hour, every 4 or 12 hours;
+* sale price with the old price crossed out, Rozetka promo price;
+* a price formula, with rounding for Prom;
+* variation photo galleries (Woo Variation Gallery, Variation Images Gallery, Woodmart);
+* a description template and the SKU or ID in the name;
+* your own offer ID for a variation and a Rozetka category for a single product;
+* Prom keywords, Prom catalog category and two languages with Polylang or WPML;
+* your own folder and file name for the feed.
 
-== Що нового? ==
+= 🛠️ For developers =
+
+WP-CLI:
+
+* `wp mrkv-uamp build <rozetka|promua|all> [--restart]` builds a feed in one process.
+* `wp mrkv-uamp status` shows every feed's state.
+
+Filters: `mrkv_uamp_offer` (one offer before it is written), `mrkv_uamp_categories`, `mrkv_uamp_mapper`, `mrkv_uamp_batch_budget`, `mrkv_uamp_settings_sections`. Action: `mrkv_uamp_feed_built`.
+
+= 🔗 External services =
+
+The plugin connects to one service run by morkva, the plugin's author: the **Rozetka category directory** at `https://api.morkva.co.ua/morkvafiles/woo-rozetka/categories.json` (and `categories.meta.json` next to it). It is downloaded once a week while you have a Rozetka feed, and when you click "Refresh" on the Rozetka tab. The request is a plain download: no data about your shop, products or customers is sent, apart from the standard WordPress user agent, which includes your site address.
+
+The plugin sends nothing to Rozetka or Prom.ua: the marketplaces download the XML file from your site.
+
+== Installation ==
+
+1. Install and activate the plugin. WooCommerce must be active.
+2. Go to WooCommerce → UA Marketplaces feeds and add a feed for Rozetka, Prom.ua or both.
+3. On the marketplace tab, fill in the shop name and brand. For Rozetka, map your categories to Rozetka categories.
+4. Click "Build now" on the Feeds tab, copy the feed URL and paste it into the marketplace cabinet.
+
+== Frequently Asked Questions ==
+
+= Where do I find the feed URL? =
+
+WooCommerce → UA Marketplaces feeds → Feeds, the "Copy" button next to the feed. Paste it into the Rozetka or Prom.ua cabinet once; it does not change.
+
+= I updated from 1.x. Do I need to change anything in the marketplace cabinets? =
+
+No. Feed URLs, category mapping and settings move over automatically, and the feeds are rebuilt in the background right after the update.
+
+= The feed is not built, or I see a timeout or memory error =
+
+Version 2.0 builds feeds in short background steps with the WooCommerce Action Scheduler. If WP-Cron is disabled on your site, add the line from the "Server cron" block on the Feeds tab to your server cron, or run `wp mrkv-uamp build all` with WP-CLI. Errors are listed in WooCommerce → Status → Logs.
+
+= The feed is updated later than scheduled =
+
+WP-Cron runs only when someone opens the site, so on a site with few visitors scheduled builds wait for the next visit. Open the "Server cron" block on the Feeds tab, copy the line and add it to the cron in your hosting panel: it calls WordPress every 5 minutes.
+
+= Why is a product missing from the Rozetka feed? =
+
+The Rozetka feed contains published simple and variable products from the categories you mapped to Rozetka (and their subcategories), unless "Leave out of the feed" is ticked on the product.
+
+= How do I set the Rozetka category for a product? =
+
+Map its WooCommerce category to a Rozetka category on the Rozetka tab: search by name or type the Rozetka category ID. A separate Rozetka category for a single product is available in Pro.
+
+= How many photos go into the feed? =
+
+The main picture and the product gallery: up to 15 for Rozetka and up to 10 for Prom.ua, the marketplaces' limits. A variation's own picture replaces the main one.
+
+= How often is the feed updated? =
+
+Once a day in the free plugin; every hour, 4 or 12 hours in Pro. "Build now" rebuilds it at any time.
+
+= Rozetka rejects products without a brand =
+
+Choose where the brand comes from on the Rozetka tab, or enter one brand for all products.
+
+= Does it work with Polylang or WPML? =
+
+With Polylang the Prom.ua feed is built in the site language. Two languages (`name_ua` and `description_ua`) are in Pro.
+
+== Changelog ==
+
+= 2.0.0 =
+* Rewritten from scratch. Feeds are built in the background in short steps, so large catalogs no longer hit server time limits.
+* The live feed is replaced only by a complete, valid file: marketplaces never see a broken or empty feed.
+* New settings page WooCommerce → UA Marketplaces feeds: one tab per marketplace, a feeds list with pause and delete.
+* "Build now" shows live progress and finishes the feed while the page is open; the Feeds tab also gives you a ready server cron line.
+* Rozetka category search by name with full paths; the category directory updates itself.
+* Feeds follow the current Rozetka and Prom.ua requirements: no empty parameters, unique variation names, picture limits, Prom dimensions.
+* Leave a product out of Rozetka and Prom.ua separately.
+* Upgrading from 1.x keeps your feed URLs and settings.
+* Ukrainian translation, WP-CLI commands. Requires WordPress 6.5 and PHP 7.4.
 
 = 1.4.20 =
-* [fix] виправили кінцевий результат фонового режиму
+* Fix: the final step of the background build.
 
 = 1.4.19 =
-* [new] додали перевірку формату назви товару
+* Product name format check.
 
 = 1.4.18 =
-* [new] додали декодування назви товару
+* Product names are decoded.
 
 = 1.4.17 =
-* [new] додали підтримку брендів Woocommerce
+* WooCommerce Brands support.
 
 = 1.4.16 =
-* [new] до значення ваги додаємо unit Prom
-* [new] видалено freemius sdk
+* Prom: weight unit added to the weight parameter. Freemius SDK removed.
 
 = 1.4.15 =
-* [fix] виправили помилку створення
+* Fix: feed creation error.
 
 = 1.4.14 =
-* [new] додали поле sku до Rozetka
+* Rozetka: SKU field.
 
 = 1.4.13 =
-* WP 6.9 - сумісний
+* Tested with WordPress 6.9.
 
 = 1.4.12 =
-* [fix] виправили вивід налаштувань
-* [fix] виправили атрибути
+* Fixes: settings output, attributes.
 
 = 1.4.11 =
-* WP 6.8 - сумісний
-* WooCommerce 9.8 - сумісний
+* Tested with WordPress 6.8 and WooCommerce 9.8.
 
 = 1.4.10 =
-* WP 6.7 - сумісний
-* WooCommerce 9.5 - сумісний
+* Tested with WordPress 6.7 and WooCommerce 9.5.
 
 = 1.4.9 =
-* [fix] виправили vendorCode для PromUA
+* Prom: vendorCode fix.
 
 = 1.4.8 =
-Перевірена сумісність з WordPress 6.6
+* Tested with WordPress 6.6.
 
 = 1.4.7 =
-Перевірена сумісність з WooCommerce 8.8
+* Tested with WooCommerce 8.8.
 
 = 1.4.6 =
-* [fix] оптимізували запити
+* Faster database queries.
 
 = 1.4.4 =
-* [new] доданий xml-тег quantity_in_stock для PromUA
-* [fix] змінений алгоритм заповнення xml-тегу available для PromUA
-Перевірена сумісність з WooCommerce 6.9 i WordPress 6.0
-
-= 1.4.3 =
-* [dev] оновлений freemius sdk до v2.4.3
+* Prom: quantity_in_stock tag, new availability rule. Tested with WooCommerce 6.9 and WordPress 6.0.
 
 = 1.4.2 =
-* [new] додана можливість генерації xml у фоновому режимі для PromUA; фоновий режим xml треба застосовувати, коли звичайний режим повертає помилку таймауту або браку пам'яті.
-* [new] xml тег sku змінений на vendorCode для PromUA
-* [new] додана підтримка Polylang при генерації xml у фоновому режимі для PromUA
+* Prom: background build mode, vendorCode instead of sku, Polylang support.
 
-= 1.3.24 =
-* [new] додані розділи на вкладку налаштувань для Rozetka
+= 1.0 – 1.3 =
+* Rozetka feed, Prom.ua feed (1.3), category mapping, scheduled updates, price coefficient, Quick Edit fields.
 
-= 1.3.23 =
-* [fix] змінений алгоритм формування xml-тегу categoryId: id шукається серед співставлених категорій
+== Upgrade Notice ==
 
-= 1.3.15 =
-* [new] створено Автооновлення xml-прайсу (CRON) для PromUA
-
-= 1.3.14 =
-* [new] додане нове налаштування Мова xml-тегів прайсу
-
-= 1.3.13 =
-* [new] змінена структура тек для PromUA
-
-= 1.3.12 =
-* [fix] виправлено формування xml-тегу name варіацій для PromUA
-
-= 1.3.11 =
-* [new] змінений UI створення xml для PromUA
-
-= 1.3.10 =
-* [new] змінений алгоритм визначення атрибуту available і тегу stock_quantity
-
-= 1.3.9 =
-* [fix] відновлена CRON-задача для формування xml для Rozetka
-* [fix] виправлено формування назв варіацій
-
-= 1.3.8 =
-* [fix] прибрані поля Rozetka ID та Rozetka Variation ID
-
-= 1.3.7 =
-* [fix] виправлено формування назви варіації варіативного товару
-
-= 1.3.4 =
-* [fix] виправлена передача в xml користувацьких атрибутів товарів
-
-= 1.3.3 =
-* [new] покращений механізм (алгоритм) створення xml
-
-= 1.3.2 =
-* [new] створена можливість прибрати сповіщення плагіну
-
-= 1.3.1 =
-* [fix] виправлено створення xml-тегу param
-
-= 1.3 =
-* [new] доданий функціонал створення xml для PromUA
-
-= 1.2.7 =
-* [new] доданий progress bar створення xml файлу
-
-= 1.2.3 =
-* [fix] відновлення роботи CRON після зміни теки вивантаження xml-файлу
-
-= 1.2.2 =
-* [new] визначення теки завантаження та назви xml-файлу в змінних
-
-= 1.2.1 =
-* [new] змінено теку формування прайсу на uploads uamrktpls
-
-= 1.2.0 =
-* [fix] виправлено формування тегу name для варіативних товарів
-* [fix] виправлено формування тегу description для варіативних товарів
-* WooCommerce tested 5.5
-
-= 1.1.11 =
-* [new] в xml-тег categoryId кожного offer тепер прописується id товару з магазину
-* [deprecated] прибрані поля Rozetka ID Category та ID Category з мета-полів товару
-* [fix] в xml-тег name тепер потрапляє значення поля Rozetka Title
-* [fix] в xml-тег description тепер потрапляє значення поля Rozetka Description
-
-= 1.1.10 =
-* [new] додані параметри варіації в xml-тег name
-* [fix] поновлена можливість редагувати кастомні поля вкладки Rozetka
-* [fix] відновлена робота Quick Edit
-
-= 1.1.9 =
-* [fix] виправлено значення атрибуту id xml-тега <category> у прайсі
-
-= 1.1.8 =
-* [new] додана можливість коригувати ціни всіх товарів в прайсі на коефіцієнт (наприклад +15%)
-
-= 1.1.7 =
-* [fix] виправлена помилка по обмеженню кількості товарів в xml
-
-= 1.1.6 =
-* [fix] виправлені помічені помилки
-
-= 1.1.2 =
-* [new] встановлений інструмент аналітики freemius
-
-= 1.1.1 =
-* [new] змінена назва головного файлу плагіну
-
-= 1.1 =
-* [new] додані поля Title та Category ID до швидкого редагування товарів
-* [new] створена зворотня сумісність з PHP 5.6 - 7.0
-* [fix] виправлений баг на сторінці варіативного товару
-
-= 1.0.7.1 =
-* [fix] змінений алгоритм формування вмісту xml-тегу description
-
-= 1.0.7 =
-* [new] доданий функціонал для поля Rozetka Description
-
-= 1.0.6 =
-* [new] доданий функціонал для поля Rozetka Variation Image
-
-= 1.0.5 =
-* [new] доданий функціонал для вкладки Rozetka в Дані товару
-
-= 1.0.3 =
-* [new] додане поле Rozetka Variation Image до варіацій
-
-= 1.0.2 =
-* [new] додана вкладка Rozetka до Дані товару
-
-= 1.0.1 =
-* [fix] прибрані службові файли
-
-= 1.0 =
-* реліз
-* WordPress tested 5.7.2
-* WooCommerce tested 5.2
-
-
-== Screenshots ==
-1. screenshot-1.jpg
-2. screenshot-2.jpg
-3. screenshot-3.jpg
-
-== Підтримка ==
-
-Якщо виникла помилка при встановленні чи використанні плагіну, - пишіть на support@morkva.co.ua або в нашу групу в Facebook https://www.facebook.com/groups/morkvasupport/.
+= 2.0.0 =
+Major update. Feed URLs and settings are kept; feeds are rebuilt in the background after the update. Requires WordPress 6.5+ and PHP 7.4+.

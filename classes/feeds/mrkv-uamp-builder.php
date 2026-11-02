@@ -81,10 +81,11 @@ if ( ! class_exists( 'MRKV_UAMP_BUILDER' ) ) {
 		/**
 		 * Appends offers until the budget runs out or the catalog ends.
 		 *
-		 * @param float|null $budget seconds; null = filtered default, INF = no limit (WP-CLI)
+		 * @param float|null $budget    seconds; null = filtered default, INF = no limit (WP-CLI)
+		 * @param int        $max_pages stop after this many pages of `step` products; 0 = no limit
 		 * @return string done | more | busy | idle | error
 		 */
-		public static function batch( string $slug, ?float $budget = null ): string {
+		public static function batch( string $slug, ?float $budget = null, int $max_pages = 0 ): string {
 			$feed   = MRKV_UAMP_FEEDS::get( $slug );
 			$mapper = self::mapper( $slug );
 			if ( ! $feed || ! $mapper ) {
@@ -108,6 +109,7 @@ if ( ! class_exists( 'MRKV_UAMP_BUILDER' ) ) {
 				$deadline = microtime( true ) + $budget;
 				$memory   = self::memory_limit();
 
+				$pages = 0;
 				while ( true ) {
 					$ids = self::next_ids( $mapper, (int) $state['cursor'], (int) $feed['step'] );
 					if ( ! $ids ) {
@@ -131,6 +133,9 @@ if ( ! class_exists( 'MRKV_UAMP_BUILDER' ) ) {
 					self::free_memory();
 
 					if ( microtime( true ) >= $deadline || ( $memory && memory_get_usage( true ) > $memory ) ) {
+						return 'more';
+					}
+					if ( $max_pages && ++$pages >= $max_pages ) {
 						return 'more';
 					}
 				}

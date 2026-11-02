@@ -82,11 +82,12 @@
 		} );
 	}
 
-	// Build progress on the Feeds tab, while at least one feed is building.
+	// Build progress on the Feeds tab, while at least one feed is building. Each request builds the
+	// next batch on the server, so the next one goes out as soon as the previous one returns.
 	var $running = $( 'tr[data-mrkv-uamp-running]' );
 	if ( $running.length ) {
 		var poll = function () {
-			$.get( MrkvUamp.ajaxUrl, { action: 'mrkv_uamp_feed_status', _ajax_nonce: MrkvUamp.nonce } ).done( function ( response ) {
+			$.post( MrkvUamp.ajaxUrl, { action: 'mrkv_uamp_feed_status', _ajax_nonce: MrkvUamp.nonce } ).done( function ( response ) {
 				if ( ! response || ! response.success ) {
 					return;
 				}
@@ -107,10 +108,12 @@
 					}
 				} );
 				if ( stillRunning ) {
-					setTimeout( poll, 3000 );
+					setTimeout( poll, 500 );
 				}
+			} ).fail( function () {
+				setTimeout( poll, 5000 );
 			} );
 		};
-		setTimeout( poll, 3000 );
+		poll();
 	}
 }( jQuery ) );
