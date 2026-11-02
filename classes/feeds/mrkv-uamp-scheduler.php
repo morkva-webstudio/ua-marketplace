@@ -106,6 +106,8 @@ if ( ! class_exists( 'MRKV_UAMP_SCHEDULER' ) ) {
 					self::queue_batch( $slug );
 				}
 			}
+			// The category directory is needed for mapping, also while the feed is paused.
+			MRKV_UAMP_ROZETKA_IMPORTER::ensure_schedule( isset( $feeds['rozetka'] ) );
 			set_transient( 'mrkv_uamp_schedule_ok', 1, 10 * MINUTE_IN_SECONDS );
 		}
 

@@ -24,11 +24,12 @@
 		}
 	} );
 
-	// Rows shown only for one value of a select: data-mrkv-uamp-show="group:value".
+	// Rows shown only for one value of a select or a ticked checkbox ("1"):
+	// data-mrkv-uamp-show="group:value". A locked (Pro) control shows all its rows as a preview.
 	function toggleRows() {
-		$( '[data-mrkv-uamp-toggle]' ).each( function () {
+		$( '[data-mrkv-uamp-toggle]' ).not( ':disabled' ).each( function () {
 			var group = $( this ).data( 'mrkvUampToggle' );
-			var value = $( this ).val();
+			var value = 'checkbox' === this.type ? ( this.checked ? '1' : '' ) : $( this ).val();
 			$( '[data-mrkv-uamp-show^="' + group + ':"]' ).each( function () {
 				this.hidden = $( this ).data( 'mrkvUampShow' ) !== group + ':' + value;
 			} );
@@ -81,11 +82,12 @@
 		} );
 	}
 
-	// Build progress on the Feeds tab, while at least one feed is building.
+	// Build progress on the Feeds tab, while at least one feed is building. Each request builds the
+	// next batch on the server, so the next one goes out as soon as the previous one returns.
 	var $running = $( 'tr[data-mrkv-uamp-running]' );
 	if ( $running.length ) {
 		var poll = function () {
-			$.get( MrkvUamp.ajaxUrl, { action: 'mrkv_uamp_feed_status', _ajax_nonce: MrkvUamp.nonce } ).done( function ( response ) {
+			$.post( MrkvUamp.ajaxUrl, { action: 'mrkv_uamp_feed_status', _ajax_nonce: MrkvUamp.nonce } ).done( function ( response ) {
 				if ( ! response || ! response.success ) {
 					return;
 				}
@@ -106,10 +108,12 @@
 					}
 				} );
 				if ( stillRunning ) {
-					setTimeout( poll, 3000 );
+					setTimeout( poll, 500 );
 				}
+			} ).fail( function () {
+				setTimeout( poll, 5000 );
 			} );
 		};
-		setTimeout( poll, 3000 );
+		poll();
 	}
 }( jQuery ) );
