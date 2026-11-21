@@ -6,6 +6,7 @@
  * Version:           2.0.0
  * Requires at least: 6.5
  * Requires PHP:      7.4
+ * Tested up to:      7.1
  * Requires Plugins:  woocommerce
  * Author:            morkva
  * Author URI:        https://morkva.co.ua
@@ -14,7 +15,7 @@
  * Text Domain:       ua-marketplace
  * Domain Path:       /languages
  * WC requires at least: 8.0
- * WC tested up to:   11.1
+ * WC tested up to:   11.3
  *
  * @package MrkvUAMP
  */
